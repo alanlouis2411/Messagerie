@@ -85,8 +85,7 @@ public class BureauDAO extends DAO<Bureau>{
                             tel = rs.getString("TEL");
                             break;
                         }
-                    }
-                    
+                    }                  
                     b = new Bureau(id, sigle, tel);
                     update(b);
                     System.out.println("La modification à bien été effectuée.");
@@ -236,7 +235,7 @@ public class BureauDAO extends DAO<Bureau>{
             pstm.setInt(1, obj.getIdbur());
             int n = pstm.executeUpdate();
             if (n == 0) {
-                throw new SQLException("aucune ligne client effacée");
+                throw new SQLException("aucune ligne bureau effacée");
             }
 
         }
