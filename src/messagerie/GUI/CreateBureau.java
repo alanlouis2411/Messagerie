@@ -136,7 +136,7 @@ public class CreateBureau extends javax.swing.JPanel {
         }
         nb_lig++;
         if(flag == 0){
-            JOptionPane.showMessageDialog(this,"Ce bureau existe déjà!","Erreur",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Ce sigle/téléphone existe déja !","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             Bureau b = new Bureau(nb_lig, sigle, tel);

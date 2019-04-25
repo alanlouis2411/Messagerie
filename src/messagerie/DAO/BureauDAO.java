@@ -10,6 +10,8 @@ public class BureauDAO extends DAO<Bureau>{
     String sigle, tel = "";
     int id, nb_lig;
     Bureau b;
+    public static String liste;
+    public static String s, tele;
     
     
     /*
@@ -186,18 +188,26 @@ public class BureauDAO extends DAO<Bureau>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String query = "select * from bureau where idbur = ?";  
-        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+        String query = "select * from bureau where idbur = ?"; 
+        String query2 = "select * from employe where idbur = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query); PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
             pstm.setInt(1, idb);
-            try (ResultSet rs = pstm.executeQuery()) {
+            pstm2.setInt(1, idb);
+            try (ResultSet rs = pstm.executeQuery(); ResultSet rs2 = pstm2.executeQuery()) {
+                liste = "\nEmployés affectés à ce bureau :";
+                while(rs2.next()){
+                    liste = liste + "\n " + rs2.getString("PRENOM") + " " + rs2.getString("NOM");
+                }
                 if (rs.next()) {
-                    String s = rs.getString("SIGLE");
-                    String tele = rs.getString("TEL");
+                    s = rs.getString("SIGLE");
+                    tele = rs.getString("TEL");
                     System.out.println(s + " " + tele+"\n\n");
-                    return new Bureau(idb, s, tele);
-                } else {
+                    return new Bureau(idb, s, tele);                 
+                }
+                else {
                     throw new SQLException("Code inconnu");
                 }
+                
 
             }
         } 
