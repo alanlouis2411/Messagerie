@@ -5,6 +5,17 @@
  */
 package messagerie.GUI;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import messagerie.Bureau;
+import messagerie.DAO.BureauDAO;
+import myconnections.DBConnection;
+
 /**
  *
  * @author alanl
@@ -27,19 +38,129 @@ public class CreateBureau extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        labSigle = new javax.swing.JLabel();
+        tfSigle = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tfTel = new javax.swing.JTextField();
+        btRetour = new javax.swing.JButton();
+        btConf = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(102, 0, 102));
+        setLayout(new java.awt.GridLayout(3, 2, 20, 20));
+
+        labSigle.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        labSigle.setForeground(new java.awt.Color(255, 255, 255));
+        labSigle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labSigle.setText("SIGLE : ");
+        add(labSigle);
+
+        tfSigle.setBackground(new java.awt.Color(255, 255, 255));
+        tfSigle.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfSigle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(tfSigle);
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("N° TELEPHONE");
+        add(jLabel2);
+
+        tfTel.setBackground(new java.awt.Color(255, 255, 255));
+        tfTel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfTel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(tfTel);
+
+        btRetour.setBackground(new java.awt.Color(51, 51, 51));
+        btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setText("Retour");
+        btRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRetourActionPerformed(evt);
+            }
+        });
+        add(btRetour);
+
+        btConf.setBackground(new java.awt.Color(51, 51, 51));
+        btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btConf.setForeground(new java.awt.Color(204, 204, 0));
+        btConf.setText("Confirmer");
+        btConf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConfActionPerformed(evt);
+            }
+        });
+        add(btConf);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetourActionPerformed
+        Fenetre.f.setContentPane(new MenuGestBur());
+        Fenetre.f.repaint();
+        Fenetre.f.revalidate();
+    }//GEN-LAST:event_btRetourActionPerformed
+
+    private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
+        BureauDAO bdao = new BureauDAO();
+        String sigle = tfSigle.getText();
+        String tel = tfTel.getText();
+        int nb_lig = 0;
+        int flag = 1;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = dbConnect.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            rs = stmt.executeQuery("select * from bureau");
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            while(rs.next()){
+                nb_lig++;
+                String sig = rs.getString("SIGLE");
+                String t = rs.getString("TEL");
+                if((sig.equals(sigle))||(t.equals(tel))){
+                    flag = 0;
+                    break;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        nb_lig++;
+        if(flag == 0){
+            JOptionPane.showMessageDialog(this,"Ce bureau existe déjà!","Erreur",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            Bureau b = new Bureau(nb_lig, sigle, tel);
+            try {
+                bdao.create(b);
+                JOptionPane.showMessageDialog(this,"Bureau créé avec succès.","Succès",JOptionPane.INFORMATION_MESSAGE);
+                Fenetre.f.setContentPane(new MenuGestBur());
+                Fenetre.f.repaint();
+                Fenetre.f.revalidate();
+            } catch (SQLException ex) {
+                Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        DBConnection.closeConnection();
+    }//GEN-LAST:event_btConfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btConf;
+    private javax.swing.JButton btRetour;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel labSigle;
+    private javax.swing.JTextField tfSigle;
+    private javax.swing.JTextField tfTel;
     // End of variables declaration//GEN-END:variables
 }

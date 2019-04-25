@@ -40,6 +40,11 @@ public class MenuGestBur extends javax.swing.JPanel {
         btCrea.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btCrea.setForeground(new java.awt.Color(204, 204, 0));
         btCrea.setText("Créer bureau");
+        btCrea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCreaActionPerformed(evt);
+            }
+        });
         add(btCrea);
 
         btRead.setBackground(new java.awt.Color(51, 51, 51));
@@ -77,6 +82,12 @@ public class MenuGestBur extends javax.swing.JPanel {
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btRetourActionPerformed
+
+    private void btCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreaActionPerformed
+        Fenetre.f.setContentPane(new CreateBureau());
+        Fenetre.f.repaint();
+        Fenetre.f.revalidate();
+    }//GEN-LAST:event_btCreaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrea;

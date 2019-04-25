@@ -54,7 +54,7 @@ public class BureauDAO extends DAO<Bureau>{
                             nb_lig++;
                             String sig = rs.getString("SIGLE");
                             String t = rs.getString("TEL");                           
-                            if((sig.equals(sigle))&&(t.equals(tel))){
+                            if((sig.equals(sigle))||(t.equals(tel))){
                                 flag = 0;
                                 break;
                             }
@@ -70,8 +70,21 @@ public class BureauDAO extends DAO<Bureau>{
                     break;
                 case 2:
                     int id2;
-                    System.out.println("Quel est l'id du bureau ?");
-                    id2 = sc.nextInt();
+                    int flag3 = 0;
+                    do{
+                        System.out.println("Quel est l'id du bureau ?");                   
+                        id2 = sc.nextInt();
+                        stmt = dbConnect.createStatement();
+                        rs = stmt.executeQuery("select * from bureau");
+                        while(rs.next()){
+                            if(id2 == rs.getInt("IDBUR")){
+                                flag3 = 1;
+                            }
+                        }
+                        if(flag3 == 0){
+                            System.out.println("Cet id n'existe pas !");
+                        }
+                    }while(flag3 == 0);
                     read(id2);
                     break;
                 case 3:                   
@@ -140,9 +153,9 @@ public class BureauDAO extends DAO<Bureau>{
         String query = "INSERT INTO BUREAU(idbur,sigle,tel) values(?,?,?)";
         String query2 = "SELECT idbur FROM BUREAU WHERE sigle=? and tel=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)){
-            pstm.setInt(1,nb_lig);
-            pstm.setString(2,sigle);
-            pstm.setString(3,tel);
+            pstm.setInt(1,obj.getIdbur());
+            pstm.setString(2,obj.getSigle());
+            pstm.setString(3,obj.getTel());
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new SQLException("Erreur de creation bureau, aucune ligne créée");

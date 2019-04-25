@@ -15,7 +15,9 @@ public class MessageDAO extends DAO<Message>{
     ResultSet rs3 = null;
     int idmsg, nb_lig;
     public static int idemp2;
-    int id_destinataire, id;
+    public static int id_destinataire;
+    public static String boite = "";
+    int id;
     String contenu, date_envoi = "", matricule;
     
 
@@ -134,6 +136,7 @@ public class MessageDAO extends DAO<Message>{
             pstm2.executeUpdate();
             try (ResultSet rs = pstm.executeQuery()) {               
                     System.out.println("Message(s) reçu(s) : \n");
+                    boite = "";
                     while(rs.next()){
                         flag = 1;
                         int idmsg2 = rs.getInt("IDMSG"); 
@@ -148,6 +151,7 @@ public class MessageDAO extends DAO<Message>{
                         rs4.next();
                         nom = rs4.getString("NOM");
                         prenom = rs4.getString("PRENOM");
+                        boite = boite + "\n" + c+", envoyé le "+date+" par "+prenom+" "+nom+"\n";
                         System.out.println(c+", envoyé le "+date+" par "+prenom+" "+nom+"\n");
                     }
                 if(flag == 1){

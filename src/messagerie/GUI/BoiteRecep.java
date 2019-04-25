@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import myconnections.DBConnection;
+import messagerie.DAO.MessageDAO;
 
 /**
  *
@@ -21,9 +22,11 @@ public class BoiteRecep extends javax.swing.JPanel {
      * Creates new form BoiteRecep
      */
     int id = MenuEmp.idemp;
+    MessageDAO mdao = new MessageDAO();
     public BoiteRecep() throws SQLException {
         initComponents();
-        boite_reception(id);
+        mdao.read(id);
+        msgReçus.setText(MessageDAO.boite);
     }
 
     /**
@@ -76,47 +79,5 @@ public class BoiteRecep extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea msgReçus;
     // End of variables declaration//GEN-END:variables
-    
-    private void boite_reception(int id) throws SQLException {
-        Connection dbConnect = DBConnection.getConnection();
-        if (dbConnect == null) {
-            System.exit(1);
-        }
-        String c = "", date = "", nom, prenom, msgs = "";
-        int ide;
-        int flag = 0;
-        String query = "select * from infos where idemp = ? order by idmsg desc";
-        String query2 = "update infos set datelecture = sysdate where idemp = ? and datelecture is null";
-        String query3 = "select * from message where idmsg = ?";
-        String query4 = "select prenom, nom from employe where idemp = ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2);PreparedStatement pstm3 = dbConnect.prepareStatement(query3);PreparedStatement pstm4 = dbConnect.prepareStatement(query4)) {
-            pstm.setInt(1, id);
-            pstm2.setInt(1, id);
-            pstm2.executeUpdate();
-            try (ResultSet rs = pstm.executeQuery()) {  
-                    while(rs.next()){
-                        flag = 1;
-                        int idmsg2 = rs.getInt("IDMSG"); 
-                        pstm3.setInt(1, idmsg2);
-                        ResultSet rs3 = pstm3.executeQuery();
-                        rs3.next();
-                        c = rs3.getString("CONTENU");
-                        date = rs3.getString("DATEENVOI");
-                        ide = rs3.getInt("IDEMP");
-                        pstm4.setInt(1, ide);
-                        ResultSet rs4 = pstm4.executeQuery();
-                        rs4.next();
-                        nom = rs4.getString("NOM");
-                        prenom = rs4.getString("PRENOM");
-                        msgs = msgs+c+"\nenvoyé le "+date+" par "+prenom+" "+nom+"\n\n";
-                    }
-                if(flag == 1){
-                    msgReçus.setText(msgs);
-                }
-                else {
-                    throw new SQLException("Code inconnu");
-                }                
-            }
-        } 
-    }
+
 }

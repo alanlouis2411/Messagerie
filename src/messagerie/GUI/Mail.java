@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import messagerie.Message;
+import messagerie.DAO.MessageDAO;
 import myconnections.DBConnection;
 
 /**
@@ -31,6 +32,7 @@ public class Mail extends javax.swing.JPanel {
     String dateenvoi = "";
     int id_dest;
     Message m;
+    MessageDAO mdao = new MessageDAO();
     int id = MenuEmp.idemp;
     int idmsg;
     String mat_dest;
@@ -129,7 +131,8 @@ public class Mail extends javax.swing.JPanel {
                 }
             }
             m = new Message(idmsg,contenu,dateenvoi,id);
-            creer(m);
+            MessageDAO.id_destinataire = id_dest;
+            mdao.create(m);
             JOptionPane.showMessageDialog(this,"Message envoyé!","succès",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(Mail.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,26 +149,4 @@ public class Mail extends javax.swing.JPanel {
     private javax.swing.JTextField tfText;
     // End of variables declaration//GEN-END:variables
     
-    
-    public void creer(Message obj) throws SQLException {
-        Connection dbConnect = DBConnection.getConnection();
-        if (dbConnect == null) {
-            System.exit(1);
-        }
-        String query = "INSERT INTO message(idmsg,contenu,dateenvoi,idemp) VALUES(?,?,sysdate,?)";
-        String query2 = "INSERT INTO INFOS(datelecture,idemp,idmsg) VALUES(?,?,?)";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)){
-            pstm.setInt(1, obj.getIdmsg());
-            pstm.setString(2, obj.getContenu());
-            pstm.setInt(3, obj.getIdemp());
-            pstm2.setString(1, null);
-            pstm2.setInt(2, id_dest);
-            pstm2.setInt(3, obj.getIdmsg());
-            int n = pstm.executeUpdate();
-            pstm2.executeUpdate();
-            if (n == 0) {
-                throw new SQLException("Erreur de creation message, aucune ligne créée");
-            }
-        }
-    }
 }
