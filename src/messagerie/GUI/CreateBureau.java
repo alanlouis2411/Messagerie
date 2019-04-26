@@ -57,6 +57,11 @@ public class CreateBureau extends javax.swing.JPanel {
         tfSigle.setBackground(new java.awt.Color(255, 255, 255));
         tfSigle.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tfSigle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfSigle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfSigleKeyTyped(evt);
+            }
+        });
         add(tfSigle);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -68,6 +73,11 @@ public class CreateBureau extends javax.swing.JPanel {
         tfTel.setBackground(new java.awt.Color(255, 255, 255));
         tfTel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tfTel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfTel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfTelKeyTyped(evt);
+            }
+        });
         add(tfTel);
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
@@ -153,6 +163,20 @@ public class CreateBureau extends javax.swing.JPanel {
         
         DBConnection.closeConnection();
     }//GEN-LAST:event_btConfActionPerformed
+
+    private void tfSigleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSigleKeyTyped
+        char l = evt.getKeyChar();
+        if(!Character.isLetter(l)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfSigleKeyTyped
+
+    private void tfTelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTelKeyTyped
+        int l = evt.getKeyChar();
+        if(!Character.isDigit(l)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfTelKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

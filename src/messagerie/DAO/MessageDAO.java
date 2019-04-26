@@ -155,10 +155,12 @@ public class MessageDAO extends DAO<Message>{
                         System.out.println(c+", envoyé le "+date+" par "+prenom+" "+nom+"\n");
                     }
                 if(flag == 1){
-                return new Message(idmsg, c, date, idemp2);
+                    return new Message(idmsg, c, date, idemp2);
                 }
                 else {
-                    throw new SQLException("Code inconnu");
+                    System.out.println("Vous n'avez reçu aucun message !");
+                    boite = "Vous n'avez reçu aucun message !";
+                    return new Message(idmsg, c, date, idemp2);
                 }                
             }
         } 
