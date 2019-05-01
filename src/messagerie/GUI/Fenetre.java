@@ -5,8 +5,7 @@
  */
 package messagerie.GUI;
 
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
-import java.net.URL;
+
 
 /**
  *

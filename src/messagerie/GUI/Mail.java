@@ -116,26 +116,40 @@ public class Mail extends javax.swing.JPanel {
         if (dbConnect == null) {
            System.exit(1);
         }
-        try {
-            stmt = dbConnect.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM message");
-            while(rs.next()){
-                idmsg++;
-            }
-            idmsg++;
-            stmt = dbConnect.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM employe");
-            while(rs.next()){
-                if(rs.getString("MATRICULE").equals(mat_dest)){
-                    id_dest = rs.getInt("IDEMP");
+        if(!contenu.equals("") && !mat_dest.equals("")){
+            try {
+                stmt = dbConnect.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM message");
+                while(rs.next()){
+                    idmsg++;
                 }
+                idmsg++;
+                stmt = dbConnect.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM employe");
+                while(rs.next()){
+                    if(rs.getString("MATRICULE").equals(mat_dest)){
+                        id_dest = rs.getInt("IDEMP");
+                    }
+                }
+                m = new Message(idmsg,contenu,dateenvoi,id);
+                MessageDAO.id_destinataire = id_dest;
+                mdao.create(m);
+                JOptionPane.showMessageDialog(this,"Message envoyé!","succès",JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(Mail.class.getName()).log(Level.SEVERE, null, ex);
             }
-            m = new Message(idmsg,contenu,dateenvoi,id);
-            MessageDAO.id_destinataire = id_dest;
-            mdao.create(m);
-            JOptionPane.showMessageDialog(this,"Message envoyé!","succès",JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            Logger.getLogger(Mail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        else if(contenu.equals("")){
+            JOptionPane.showMessageDialog(this,"Vous n'allez quand même pas envoyer un mail vide ?!","Erreur",JOptionPane.INFORMATION_MESSAGE);
+            Fenetre.f.setContentPane(new Mail());
+            Fenetre.f.repaint();
+            Fenetre.f.revalidate();
+        }
+        else if(mat_dest.equals("")){
+            JOptionPane.showMessageDialog(this,"Il faut entrer un matricule !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+            Fenetre.f.setContentPane(new Mail());
+            Fenetre.f.repaint();
+            Fenetre.f.revalidate();
         }
     }//GEN-LAST:event_btEnvActionPerformed
 

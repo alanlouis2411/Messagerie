@@ -100,6 +100,7 @@ public class MenuEmp extends javax.swing.JPanel {
        if (dbConnect == null) {
            System.exit(1);
        }
+       if (mat != null){
             try {
                 stmt = dbConnect.createStatement();
             } catch (SQLException ex) {
@@ -135,6 +136,14 @@ public class MenuEmp extends javax.swing.JPanel {
                 Fenetre.f.repaint();
                 Fenetre.f.revalidate();
             }
+       }
+       else{
+           JOptionPane.showMessageDialog(this,"Le champ est vide !","ERREUR",JOptionPane.INFORMATION_MESSAGE);
+           Fenetre.f.setContentPane(new MenuEmp());
+           Fenetre.f.repaint();
+           Fenetre.f.revalidate();
+       }
+       DBConnection.closeConnection();
     }//GEN-LAST:event_btConfActionPerformed
 
     private void btRetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetActionPerformed

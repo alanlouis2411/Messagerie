@@ -14,17 +14,18 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import messagerie.DAO.BureauDAO;
 import myconnections.DBConnection;
-
 /**
  *
  * @author alanl
  */
-public class ReadBureau extends javax.swing.JPanel {
+public class ModifBureau extends javax.swing.JPanel {
 
     /**
-     * Creates new form ReadBureau
+     * Creates new form ModifBureau
      */
-    public ReadBureau() {
+    public static int idBurModif;
+    
+    public ModifBureau() {
         initComponents();
     }
 
@@ -38,7 +39,7 @@ public class ReadBureau extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tfId = new javax.swing.JTextField();
+        tfModif = new javax.swing.JTextField();
         btConf = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
@@ -48,14 +49,14 @@ public class ReadBureau extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Entrez l'id du bureau ci dessous");
+        jLabel1.setText("Entrez l'id du bureau à modifier ");
         add(jLabel1);
 
-        tfId.setBackground(new java.awt.Color(255, 255, 255));
-        tfId.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        tfId.setForeground(new java.awt.Color(0, 0, 0));
-        tfId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(tfId);
+        tfModif.setBackground(new java.awt.Color(255, 255, 255));
+        tfModif.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfModif.setForeground(new java.awt.Color(0, 0, 0));
+        tfModif.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(tfModif);
 
         btConf.setBackground(new java.awt.Color(51, 51, 51));
         btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -87,15 +88,14 @@ public class ReadBureau extends javax.swing.JPanel {
     }//GEN-LAST:event_btRetourActionPerformed
 
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
-        String idString = tfId.getText();
-        if(idString.equals("")){
-           JOptionPane.showMessageDialog(this,"Vous n'avez entré aucun id !","Erreur",JOptionPane.INFORMATION_MESSAGE); 
+        String idModif = tfModif.getText();
+        if(idModif.equals("")){
+            JOptionPane.showMessageDialog(this,"Vous n'avez entré aucun id !","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             try {
-                String str = "";
                 BureauDAO bdao = new BureauDAO();
-                int id = Integer.parseInt(idString);
+                idBurModif = Integer.parseInt(idModif);
                 ResultSet rs;
                 int flag = 0;
                 Statement stmt;
@@ -106,7 +106,10 @@ public class ReadBureau extends javax.swing.JPanel {
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("select * from bureau");
                 while(rs.next()){
-                    if(id == rs.getInt("IDBUR")){
+                    if(idBurModif == rs.getInt("IDBUR")){
+                        ModifBureau2.id = idBurModif;
+                        ModifBureau2.s = rs.getString("SIGLE");
+                        ModifBureau2.t = rs.getString("TEL");
                         flag = 1;
                     }
                 }
@@ -114,14 +117,15 @@ public class ReadBureau extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this,"Cet id ne correspond à aucun bureau !","Erreur",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    bdao.read(id);
-                    str = str + BureauDAO.s + " " + BureauDAO.tele + BureauDAO.liste;
-                    JOptionPane.showMessageDialog(this,str,"Information",JOptionPane.INFORMATION_MESSAGE);
+                    Fenetre.f.setContentPane(new ModifBureau2());
+                    Fenetre.f.repaint();
+                    Fenetre.f.revalidate();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ReadBureau.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        DBConnection.closeConnection();
     }//GEN-LAST:event_btConfActionPerformed
 
 
@@ -129,6 +133,6 @@ public class ReadBureau extends javax.swing.JPanel {
     private javax.swing.JButton btConf;
     private javax.swing.JButton btRetour;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfModif;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,7 @@ public class BureauDAO extends DAO<Bureau>{
     Bureau b;
     public static String liste;
     public static String s, tele;
+    public static String new_sig, new_tel;
     
     
     /*
@@ -102,6 +103,10 @@ public class BureauDAO extends DAO<Bureau>{
                         }
                     }                  
                     b = new Bureau(id, sigle, tel);
+                    System.out.println("Nouveau sigle : ");
+                    new_sig = sc2.nextLine();
+                    System.out.println("Nouveau numéro : ");
+                    new_tel = sc2.nextLine();
                     update(b);
                     System.out.println("La modification à bien été effectuée.");
                     break;
@@ -222,25 +227,18 @@ public class BureauDAO extends DAO<Bureau>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String s, t;
-        Scanner sc2 = new Scanner(System.in);
         String query = "update bureau set sigle=?,tel=? where idbur=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            System.out.println("Nouveau sigle : ");
-            s = sc2.nextLine();
-            System.out.println("Nouveau numéro : ");
-            t = sc2.nextLine();
             pstm.setInt(3, obj.getIdbur());
-            pstm.setString(1, s);
-            pstm.setString(2, t);
+            pstm.setString(1, new_sig);
+            pstm.setString(2, new_tel);
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new SQLException("aucune ligne client mise à jour");
             }
             return read(obj.getIdbur());
         }
-    }
-    
+    }   
     /*
         Supprime un bureau de la table (on vérifie dans le menu qu'aucun employé ne soit assigné au bureau qu'on souhaite supprimer
         avant d'appeler la méthode sur le bureau en question).
