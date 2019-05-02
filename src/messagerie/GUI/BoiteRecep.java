@@ -45,9 +45,9 @@ public class BoiteRecep extends javax.swing.JPanel {
         setBackground(new java.awt.Color(51, 51, 255));
         setLayout(new java.awt.BorderLayout());
 
-        msgReçus.setBackground(new java.awt.Color(51, 51, 51));
+        msgReçus.setBackground(new java.awt.Color(255, 255, 255));
         msgReçus.setColumns(20);
-        msgReçus.setForeground(new java.awt.Color(255, 255, 255));
+        msgReçus.setForeground(new java.awt.Color(0, 0, 0));
         msgReçus.setLineWrap(true);
         msgReçus.setRows(20);
         msgReçus.setTabSize(50);
@@ -57,7 +57,7 @@ public class BoiteRecep extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

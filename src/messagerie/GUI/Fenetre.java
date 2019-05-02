@@ -73,6 +73,7 @@ public class Fenetre extends javax.swing.JFrame {
             public void run() {
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
+                f.setSize(400,300);              
                 f.setContentPane(new MenuPr());
                 f.repaint();
                 f.revalidate();

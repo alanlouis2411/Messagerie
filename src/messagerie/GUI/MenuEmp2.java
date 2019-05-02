@@ -38,19 +38,19 @@ public class MenuEmp2 extends javax.swing.JPanel {
         btRecep = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(51, 51, 255));
+        setBackground(new java.awt.Color(0, 0, 204));
         setForeground(new java.awt.Color(204, 204, 0));
         setLayout(new java.awt.GridLayout(4, 1, 20, 20));
 
         labEmp.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        labEmp.setForeground(new java.awt.Color(204, 204, 0));
+        labEmp.setForeground(new java.awt.Color(255, 255, 255));
         labEmp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labEmp.setText("Bonjour");
         add(labEmp);
 
         btMail.setBackground(new java.awt.Color(51, 51, 51));
         btMail.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btMail.setForeground(new java.awt.Color(204, 204, 0));
+        btMail.setForeground(new java.awt.Color(255, 255, 255));
         btMail.setText("Envoyer mail");
         btMail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,7 +61,7 @@ public class MenuEmp2 extends javax.swing.JPanel {
 
         btRecep.setBackground(new java.awt.Color(51, 51, 51));
         btRecep.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRecep.setForeground(new java.awt.Color(204, 204, 0));
+        btRecep.setForeground(new java.awt.Color(255, 255, 255));
         btRecep.setText("Boite de réception");
         btRecep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +72,7 @@ public class MenuEmp2 extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Déconnexion");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

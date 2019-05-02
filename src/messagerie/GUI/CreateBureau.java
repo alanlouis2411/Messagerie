@@ -45,7 +45,7 @@ public class CreateBureau extends javax.swing.JPanel {
         btRetour = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 0, 102));
+        setBackground(new java.awt.Color(0, 0, 204));
         setLayout(new java.awt.GridLayout(3, 2, 20, 20));
 
         labSigle.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -67,12 +67,17 @@ public class CreateBureau extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("N° TELEPHONE");
+        jLabel2.setText("N° TELEPHONE :");
         add(jLabel2);
 
         tfTel.setBackground(new java.awt.Color(255, 255, 255));
         tfTel.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tfTel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTelActionPerformed(evt);
+            }
+        });
         tfTel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfTelKeyTyped(evt);
@@ -82,7 +87,7 @@ public class CreateBureau extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +98,7 @@ public class CreateBureau extends javax.swing.JPanel {
 
         btConf.setBackground(new java.awt.Color(51, 51, 51));
         btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btConf.setForeground(new java.awt.Color(204, 204, 0));
+        btConf.setForeground(new java.awt.Color(255, 255, 255));
         btConf.setText("Confirmer");
         btConf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,6 +189,10 @@ public class CreateBureau extends javax.swing.JPanel {
             evt.consume();
         }
     }//GEN-LAST:event_tfTelKeyTyped
+
+    private void tfTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

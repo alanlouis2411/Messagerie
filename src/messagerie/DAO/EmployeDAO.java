@@ -11,6 +11,7 @@ public class EmployeDAO extends DAO<Employe>{
     ResultSet rs2 = null;
     int idemp, idbur;
     String matricule, nom, prenom;
+    public static String liste_msgs = "";
     
          
     /*
@@ -151,11 +152,11 @@ public class EmployeDAO extends DAO<Employe>{
         String query = "INSERT INTO EMPLOYE(idemp,matricule,nom,prenom,idbur) values(?,?,?,?,?)";
         String query2 = "SELECT idemp FROM EMPLOYE WHERE idbur=? AND matricule=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)){
-            pstm.setInt(1,idemp);
-            pstm.setString(2,matricule);
-            pstm.setString(3,nom);
-            pstm.setString(4,prenom);
-            pstm.setInt(5,idbur);
+            pstm.setInt(1,obj.getIdemp());
+            pstm.setString(2,obj.getMatricule());
+            pstm.setString(3,obj.getNom());
+            pstm.setString(4,obj.getPrenom());
+            pstm.setInt(5,obj.getIdbur());
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new SQLException("Erreur de creation employé, aucune ligne créée");
@@ -186,7 +187,7 @@ public class EmployeDAO extends DAO<Employe>{
         }
         String message, date;
         String query = "select * from employe where idemp = ?";  
-        String query2 = "select * from message where idemp = ? order by idmsg desc";
+        String query2 = "select * from message where idemp = ? order by idmsg";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)) {
             pstm.setInt(1, id);
             pstm2.setInt(1, id);
@@ -197,11 +198,14 @@ public class EmployeDAO extends DAO<Employe>{
                     String prename = rs.getString("PRENOM");
                     int idb = rs.getInt("IDBUR");
                     System.out.println(mat+" "+name+" "+prename+" du bureau n° "+idb);
+                    liste_msgs += "\n" +mat+" "+name+" "+prename+" du bureau n° "+idb;
                     System.out.println("Message(s) envoyé(s) : ");
+                    liste_msgs = liste_msgs + "\nMessage(s) envoyé(s) : ";
                     while(rs2.next()){
                         message = rs2.getString("CONTENU");
                         date = rs2.getString("DATEENVOI");
                         System.out.println(message+", envoyé le "+date);
+                        liste_msgs += "\n" + message + ", envoyé le " + date;
                     }       
                     System.out.println("\n\n");
                     return new Employe(id, mat, name, prename, idb);

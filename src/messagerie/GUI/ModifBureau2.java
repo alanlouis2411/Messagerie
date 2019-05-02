@@ -48,7 +48,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
         btRetour = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 0, 102));
+        setBackground(new java.awt.Color(0, 0, 204));
         setLayout(new java.awt.GridLayout(3, 2, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -87,7 +87,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +98,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
 
         btConf.setBackground(new java.awt.Color(51, 51, 51));
         btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btConf.setForeground(new java.awt.Color(204, 204, 0));
+        btConf.setForeground(new java.awt.Color(255, 255, 255));
         btConf.setText("Confirmer");
         btConf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,43 +129,50 @@ public class ModifBureau2 extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTelKeyTyped
 
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
-        try {
-            BureauDAO.new_sig = tfSigle.getText();
-            BureauDAO.new_tel = tfTel.getText();
-            ResultSet rs;
-            int flag = 0;
-            Statement stmt;
-            Connection dbConnect = DBConnection.getConnection();
-            if (dbConnect == null) {
-                System.exit(1);
-            }
-            stmt = dbConnect.createStatement();
-            rs = stmt.executeQuery("select * from bureau");
-            while(rs.next()){
-                if(id != rs.getInt("IDBUR") && (BureauDAO.new_sig.equals(rs.getString("SIGLE")) || BureauDAO.new_tel.equals("TEL"))){
-                    flag = 1;
-                    break;
-                }
-            }
-            if(flag == 1){
-                JOptionPane.showMessageDialog(this,"Sigle/N° de téléphone déjà existant !","Erreur",JOptionPane.INFORMATION_MESSAGE);
-                Fenetre.f.setContentPane(new ModifBureau2());
-                Fenetre.f.repaint();
-                Fenetre.f.revalidate();
-            }
-            else{
-                Bureau b = new Bureau(id, s, t);
-                BureauDAO bdao = new BureauDAO();
-                bdao.update(b);
-                Fenetre.f.setContentPane(new MenuGestBur());
-                Fenetre.f.repaint();
-                Fenetre.f.revalidate();
-                JOptionPane.showMessageDialog(this,"Modification effectuée.","Succès",JOptionPane.INFORMATION_MESSAGE);             
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ModifBureau2.class.getName()).log(Level.SEVERE, null, ex);
+        BureauDAO.new_sig = tfSigle.getText();
+        BureauDAO.new_tel = tfTel.getText();
+        if(BureauDAO.new_sig.equals("") || BureauDAO.new_tel.equals("")){
+            JOptionPane.showMessageDialog(this,"Les champs sont vides !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+            Fenetre.f.repaint();
+            Fenetre.f.revalidate();
         }
-        DBConnection.closeConnection();
+        else{
+            try {
+                ResultSet rs;
+                int flag = 0;
+                Statement stmt;
+                Connection dbConnect = DBConnection.getConnection();
+                if (dbConnect == null) {
+                    System.exit(1);
+                }
+                stmt = dbConnect.createStatement();
+                rs = stmt.executeQuery("select * from bureau");
+                while(rs.next()){
+                    if(id != rs.getInt("IDBUR") && (BureauDAO.new_sig.equals(rs.getString("SIGLE")) || BureauDAO.new_tel.equals("TEL"))){
+                        flag = 1;
+                        break;
+                    }
+                }
+                if(flag == 1){
+                    JOptionPane.showMessageDialog(this,"Sigle/N° de téléphone déjà existant !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+                    Fenetre.f.setContentPane(new ModifBureau2());
+                    Fenetre.f.repaint();
+                    Fenetre.f.revalidate();
+                }
+                else{
+                    Bureau b = new Bureau(id, s, t);
+                    BureauDAO bdao = new BureauDAO();
+                    bdao.update(b);
+                    Fenetre.f.setContentPane(new MenuGestBur());
+                    Fenetre.f.repaint();
+                    Fenetre.f.revalidate();
+                    JOptionPane.showMessageDialog(this,"Modification effectuée.","Succès",JOptionPane.INFORMATION_MESSAGE);             
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ModifBureau2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            DBConnection.closeConnection();
+        }
     }//GEN-LAST:event_btConfActionPerformed
 
 

@@ -33,12 +33,12 @@ public class MenuGestBur extends javax.swing.JPanel {
         btDelete = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 0, 102));
+        setBackground(new java.awt.Color(0, 0, 204));
         setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         btCrea.setBackground(new java.awt.Color(51, 51, 51));
         btCrea.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btCrea.setForeground(new java.awt.Color(204, 204, 0));
+        btCrea.setForeground(new java.awt.Color(255, 255, 255));
         btCrea.setText("Créer bureau");
         btCrea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,7 +49,7 @@ public class MenuGestBur extends javax.swing.JPanel {
 
         btRead.setBackground(new java.awt.Color(51, 51, 51));
         btRead.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRead.setForeground(new java.awt.Color(204, 204, 0));
+        btRead.setForeground(new java.awt.Color(255, 255, 255));
         btRead.setText("Voir bureau");
         btRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,7 +60,7 @@ public class MenuGestBur extends javax.swing.JPanel {
 
         btModif.setBackground(new java.awt.Color(51, 51, 51));
         btModif.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btModif.setForeground(new java.awt.Color(204, 204, 0));
+        btModif.setForeground(new java.awt.Color(255, 255, 255));
         btModif.setText("Modifier bureau");
         btModif.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +71,7 @@ public class MenuGestBur extends javax.swing.JPanel {
 
         btDelete.setBackground(new java.awt.Color(51, 51, 51));
         btDelete.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btDelete.setForeground(new java.awt.Color(204, 204, 0));
+        btDelete.setForeground(new java.awt.Color(255, 255, 255));
         btDelete.setText("Supprimer bureau");
         btDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +82,7 @@ public class MenuGestBur extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

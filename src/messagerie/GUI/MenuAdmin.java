@@ -32,18 +32,18 @@ public class MenuAdmin extends javax.swing.JPanel {
         btEmpl = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 0, 102));
+        setBackground(new java.awt.Color(0, 0, 204));
         setLayout(new java.awt.GridLayout(4, 1, 15, 15));
 
         labAdmin.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        labAdmin.setForeground(new java.awt.Color(204, 204, 0));
+        labAdmin.setForeground(new java.awt.Color(255, 255, 255));
         labAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labAdmin.setText("Administrateur");
         add(labAdmin);
 
         btBureaux.setBackground(new java.awt.Color(51, 51, 51));
         btBureaux.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btBureaux.setForeground(new java.awt.Color(204, 204, 0));
+        btBureaux.setForeground(new java.awt.Color(255, 255, 255));
         btBureaux.setText("Gestion bureaux");
         btBureaux.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +54,7 @@ public class MenuAdmin extends javax.swing.JPanel {
 
         btEmpl.setBackground(new java.awt.Color(51, 51, 51));
         btEmpl.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btEmpl.setForeground(new java.awt.Color(204, 204, 0));
+        btEmpl.setForeground(new java.awt.Color(255, 255, 255));
         btEmpl.setText("Gestion employés");
         btEmpl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +65,7 @@ public class MenuAdmin extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

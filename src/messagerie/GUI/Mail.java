@@ -6,7 +6,6 @@
 package messagerie.GUI;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,13 +52,14 @@ public class Mail extends javax.swing.JPanel {
         tfText = new javax.swing.JTextField();
         lab = new javax.swing.JLabel();
         tfMat = new javax.swing.JTextField();
+        btMatricules = new javax.swing.JButton();
         btEnv = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
         jTextField2.setText("jTextField2");
 
-        setBackground(new java.awt.Color(51, 51, 255));
-        setLayout(new java.awt.GridLayout(5, 1, 20, 20));
+        setBackground(new java.awt.Color(0, 0, 204));
+        setLayout(new java.awt.GridLayout(6, 1, 20, 20));
 
         tfText.setBackground(new java.awt.Color(255, 255, 255));
         tfText.setForeground(new java.awt.Color(0, 0, 0));
@@ -68,7 +68,7 @@ public class Mail extends javax.swing.JPanel {
         add(tfText);
 
         lab.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        lab.setForeground(new java.awt.Color(204, 204, 0));
+        lab.setForeground(new java.awt.Color(255, 255, 255));
         lab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lab.setText("Entrez ci-dessous le matricule du destinataire :");
         add(lab);
@@ -79,9 +79,20 @@ public class Mail extends javax.swing.JPanel {
         tfMat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         add(tfMat);
 
+        btMatricules.setBackground(new java.awt.Color(51, 51, 51));
+        btMatricules.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btMatricules.setForeground(new java.awt.Color(255, 255, 255));
+        btMatricules.setText("Voir les matricules");
+        btMatricules.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMatriculesActionPerformed(evt);
+            }
+        });
+        add(btMatricules);
+
         btEnv.setBackground(new java.awt.Color(51, 51, 51));
         btEnv.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btEnv.setForeground(new java.awt.Color(204, 204, 0));
+        btEnv.setForeground(new java.awt.Color(255, 255, 255));
         btEnv.setText("Envoyer");
         btEnv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +103,7 @@ public class Mail extends javax.swing.JPanel {
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Annuler");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,11 +162,32 @@ public class Mail extends javax.swing.JPanel {
             Fenetre.f.repaint();
             Fenetre.f.revalidate();
         }
+        DBConnection.closeConnection();
     }//GEN-LAST:event_btEnvActionPerformed
+
+    private void btMatriculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMatriculesActionPerformed
+        String matricules = "";
+        try {
+            Connection dbConnect = DBConnection.getConnection();
+            if (dbConnect == null) {
+                System.exit(1);
+            }
+            stmt = dbConnect.createStatement();
+            rs = stmt.executeQuery("select * from employe order by idemp");
+            while(rs.next()){
+                matricules = matricules + "\n" + rs.getString("PRENOM") + " " + rs.getString("NOM") + " : " + rs.getString("MATRICULE");
+            }
+            JOptionPane.showMessageDialog(this,"Liste des matricules : " + matricules,"Information",JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(Mail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DBConnection.closeConnection();
+    }//GEN-LAST:event_btMatriculesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEnv;
+    private javax.swing.JButton btMatricules;
     private javax.swing.JButton btRetour;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lab;

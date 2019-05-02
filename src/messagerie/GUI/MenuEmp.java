@@ -50,17 +50,17 @@ public class MenuEmp extends javax.swing.JPanel {
         btConf = new javax.swing.JButton();
         btRet = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(51, 51, 255));
+        setBackground(new java.awt.Color(0, 0, 204));
         setLayout(new java.awt.GridLayout(5, 1, 15, 15));
 
         labConn.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        labConn.setForeground(new java.awt.Color(204, 204, 0));
+        labConn.setForeground(new java.awt.Color(255, 255, 255));
         labConn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labConn.setText("Connexion");
         add(labConn);
 
         labMat.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        labMat.setForeground(new java.awt.Color(204, 204, 0));
+        labMat.setForeground(new java.awt.Color(255, 255, 255));
         labMat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labMat.setText("Entrez votre matricule");
         add(labMat);
@@ -73,7 +73,7 @@ public class MenuEmp extends javax.swing.JPanel {
 
         btConf.setBackground(new java.awt.Color(51, 51, 51));
         btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btConf.setForeground(new java.awt.Color(204, 204, 0));
+        btConf.setForeground(new java.awt.Color(255, 255, 255));
         btConf.setText("Confirmer");
         btConf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class MenuEmp extends javax.swing.JPanel {
 
         btRet.setBackground(new java.awt.Color(51, 51, 51));
         btRet.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRet.setForeground(new java.awt.Color(204, 204, 0));
+        btRet.setForeground(new java.awt.Color(255, 255, 255));
         btRet.setText("Retour");
         btRet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

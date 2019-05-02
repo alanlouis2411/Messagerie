@@ -33,36 +33,46 @@ public class MenuGestEmp extends javax.swing.JPanel {
         btSupp = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 0, 102));
+        setBackground(new java.awt.Color(0, 0, 204));
         setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         btCrea.setBackground(new java.awt.Color(51, 51, 51));
         btCrea.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btCrea.setForeground(new java.awt.Color(204, 204, 0));
+        btCrea.setForeground(new java.awt.Color(255, 255, 255));
         btCrea.setText("Ajouter employé");
+        btCrea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCreaActionPerformed(evt);
+            }
+        });
         add(btCrea);
 
         btRead.setBackground(new java.awt.Color(51, 51, 51));
         btRead.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRead.setForeground(new java.awt.Color(204, 204, 0));
+        btRead.setForeground(new java.awt.Color(255, 255, 255));
         btRead.setText("Voir infos employé (+messages envoyés)");
+        btRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReadActionPerformed(evt);
+            }
+        });
         add(btRead);
 
         btModif.setBackground(new java.awt.Color(51, 51, 51));
         btModif.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btModif.setForeground(new java.awt.Color(204, 204, 0));
+        btModif.setForeground(new java.awt.Color(255, 255, 255));
         btModif.setText("Modifier infos employé");
         add(btModif);
 
         btSupp.setBackground(new java.awt.Color(51, 51, 51));
         btSupp.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btSupp.setForeground(new java.awt.Color(204, 204, 0));
+        btSupp.setForeground(new java.awt.Color(255, 255, 255));
         btSupp.setText("Virer employé");
         add(btSupp);
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btRetour.setForeground(new java.awt.Color(204, 204, 0));
+        btRetour.setForeground(new java.awt.Color(255, 255, 255));
         btRetour.setText("Retour");
         btRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +87,18 @@ public class MenuGestEmp extends javax.swing.JPanel {
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btRetourActionPerformed
+
+    private void btCreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreaActionPerformed
+        Fenetre.f.setContentPane(new CreateEmploye());
+        Fenetre.f.repaint();
+        Fenetre.f.revalidate();
+    }//GEN-LAST:event_btCreaActionPerformed
+
+    private void btReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReadActionPerformed
+        Fenetre.f.setContentPane(new ReadEmploye());
+        Fenetre.f.repaint();
+        Fenetre.f.revalidate();
+    }//GEN-LAST:event_btReadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

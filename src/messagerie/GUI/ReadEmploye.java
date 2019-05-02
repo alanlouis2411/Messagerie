@@ -12,19 +12,19 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import messagerie.DAO.BureauDAO;
+import messagerie.DAO.EmployeDAO;
 import myconnections.DBConnection;
 
 /**
  *
  * @author alanl
  */
-public class ReadBureau extends javax.swing.JPanel {
+public class ReadEmploye extends javax.swing.JPanel {
 
     /**
-     * Creates new form ReadBureau
+     * Creates new form ReadEmploye
      */
-    public ReadBureau() {
+    public ReadEmploye() {
         initComponents();
     }
 
@@ -39,16 +39,17 @@ public class ReadBureau extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         tfId = new javax.swing.JTextField();
+        btId = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 204));
-        setLayout(new java.awt.GridLayout(4, 1, 20, 20));
+        setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Entrez l'id du bureau ci dessous");
+        jLabel1.setText("Entrez l'id de l'employé :");
         add(jLabel1);
 
         tfId.setBackground(new java.awt.Color(255, 255, 255));
@@ -61,6 +62,17 @@ public class ReadBureau extends javax.swing.JPanel {
             }
         });
         add(tfId);
+
+        btId.setBackground(new java.awt.Color(51, 51, 51));
+        btId.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btId.setForeground(new java.awt.Color(255, 255, 255));
+        btId.setText("Voir les id ");
+        btId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIdActionPerformed(evt);
+            }
+        });
+        add(btId);
 
         btConf.setBackground(new java.awt.Color(51, 51, 51));
         btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -86,45 +98,67 @@ public class ReadBureau extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetourActionPerformed
-        Fenetre.f.setContentPane(new MenuGestBur());
+        Fenetre.f.setContentPane(new MenuGestEmp());
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btRetourActionPerformed
 
+    private void btIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIdActionPerformed
+        try {
+            String liste = "";
+            Connection dbConnect = DBConnection.getConnection();
+            if (dbConnect == null) {
+                System.exit(1);
+            }
+            Statement stmt = dbConnect.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from employe order by idemp");
+            while(rs.next()){
+                liste = liste + "\n" + rs.getInt("IDEMP") + " " + rs.getString("NOM");
+            }
+            JOptionPane.showMessageDialog(this,"Liste des employés :" + liste,"Information",JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReadEmploye.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DBConnection.closeConnection();
+    }//GEN-LAST:event_btIdActionPerformed
+
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
-        String idString = tfId.getText();
-        if(idString.equals("")){
-           JOptionPane.showMessageDialog(this,"Vous n'avez entré aucun id !","Erreur",JOptionPane.INFORMATION_MESSAGE); 
+        String id = tfId.getText();
+        String liste = "";
+        if(id.equals("")){
+            JOptionPane.showMessageDialog(this,"Le champ est vide.","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             try {
-                String str = "";
-                BureauDAO bdao = new BureauDAO();
-                int id = Integer.parseInt(idString);
-                ResultSet rs;
-                int flag = 0;
-                Statement stmt;
                 Connection dbConnect = DBConnection.getConnection();
                 if (dbConnect == null) {
                     System.exit(1);
                 }
-                stmt = dbConnect.createStatement();
-                rs = stmt.executeQuery("select * from bureau");
+                int flag = 0;
+                int idemp = Integer.parseInt(id);
+                Statement stmt = dbConnect.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from employe");
                 while(rs.next()){
-                    if(id == rs.getInt("IDBUR")){
+                    if(idemp == rs.getInt("IDEMP")){
                         flag = 1;
+                        break;
                     }
                 }
                 if(flag == 0){
-                    JOptionPane.showMessageDialog(this,"Cet id ne correspond à aucun bureau !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"Cet id n'est associé à aucun employé !","Erreur",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    bdao.read(id);
-                    str = str + BureauDAO.s + " " + BureauDAO.tele + BureauDAO.liste;
-                    JOptionPane.showMessageDialog(this,str,"Information",JOptionPane.INFORMATION_MESSAGE);
+                    EmployeDAO empdao = new EmployeDAO();
+                    EmployeDAO.liste_msgs = "";
+                    empdao.read(idemp);
+                    JOptionPane.showMessageDialog(this,EmployeDAO.liste_msgs,"Information",JOptionPane.INFORMATION_MESSAGE);
+                    Fenetre.f.setContentPane(new ReadEmploye());
+                    Fenetre.f.repaint();
+                    Fenetre.f.revalidate();
+                    DBConnection.closeConnection();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ReadBureau.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReadEmploye.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btConfActionPerformed
@@ -139,6 +173,7 @@ public class ReadBureau extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConf;
+    private javax.swing.JButton btId;
     private javax.swing.JButton btRetour;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField tfId;
