@@ -94,7 +94,6 @@ public class ModifBureau extends javax.swing.JPanel {
         }
         else{
             try {
-                BureauDAO bdao = new BureauDAO();
                 idBurModif = Integer.parseInt(idModif);
                 ResultSet rs;
                 int flag = 0;

@@ -73,6 +73,11 @@ public class MenuGestBur extends javax.swing.JPanel {
         btDelete.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btDelete.setForeground(new java.awt.Color(204, 204, 0));
         btDelete.setText("Supprimer bureau");
+        btDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeleteActionPerformed(evt);
+            }
+        });
         add(btDelete);
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
@@ -110,6 +115,12 @@ public class MenuGestBur extends javax.swing.JPanel {
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btModifActionPerformed
+
+    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
+        Fenetre.f.setContentPane(new DeleteBureau());
+        Fenetre.f.repaint();
+        Fenetre.f.revalidate();
+    }//GEN-LAST:event_btDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrea;
