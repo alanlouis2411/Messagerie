@@ -77,6 +77,11 @@ public class Mail extends javax.swing.JPanel {
         tfMat.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tfMat.setForeground(new java.awt.Color(0, 0, 0));
         tfMat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfMat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfMatKeyTyped(evt);
+            }
+        });
         add(tfMat);
 
         btMatricules.setBackground(new java.awt.Color(51, 51, 51));
@@ -131,6 +136,7 @@ public class Mail extends javax.swing.JPanel {
             try {
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM message");
+                int flag = 0;
                 while(rs.next()){
                     idmsg++;
                 }
@@ -140,12 +146,18 @@ public class Mail extends javax.swing.JPanel {
                 while(rs.next()){
                     if(rs.getString("MATRICULE").equals(mat_dest)){
                         id_dest = rs.getInt("IDEMP");
+                        flag = 1;
                     }
                 }
-                m = new Message(idmsg,contenu,dateenvoi,id);
-                MessageDAO.id_destinataire = id_dest;
-                mdao.create(m);
-                JOptionPane.showMessageDialog(this,"Message envoyé!","succès",JOptionPane.INFORMATION_MESSAGE);
+                if(flag == 0){
+                    JOptionPane.showMessageDialog(this,"Matricule incorrect.","Erreur",JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    m = new Message(idmsg,contenu,dateenvoi,id);
+                    MessageDAO.id_destinataire = id_dest;
+                    mdao.create(m);
+                    JOptionPane.showMessageDialog(this,"Message envoyé!","succès",JOptionPane.INFORMATION_MESSAGE);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Mail.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -183,6 +195,13 @@ public class Mail extends javax.swing.JPanel {
         }
         DBConnection.closeConnection();
     }//GEN-LAST:event_btMatriculesActionPerformed
+
+    private void tfMatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMatKeyTyped
+        int l = evt.getKeyChar();
+        if(!Character.isDigit(l)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfMatKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
