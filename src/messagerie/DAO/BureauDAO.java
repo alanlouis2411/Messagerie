@@ -206,7 +206,7 @@ public class BureauDAO extends DAO<Bureau>{
                 if (rs.next()) {
                     s = rs.getString("SIGLE");
                     tele = rs.getString("TEL");
-                    System.out.println(s + " " + tele+"\n\n");
+                    System.out.println("Sigle : " + s + " N° de téléphone : " + tele+"\n\n");
                     return new Bureau(idb, s, tele);                 
                 }
                 else {

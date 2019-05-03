@@ -39,11 +39,12 @@ public class ReadBureau extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         tfId = new javax.swing.JTextField();
+        btId = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 204));
-        setLayout(new java.awt.GridLayout(4, 1, 20, 20));
+        setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -61,6 +62,17 @@ public class ReadBureau extends javax.swing.JPanel {
             }
         });
         add(tfId);
+
+        btId.setBackground(new java.awt.Color(51, 51, 51));
+        btId.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btId.setForeground(new java.awt.Color(255, 255, 255));
+        btId.setText("Voir les id");
+        btId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIdActionPerformed(evt);
+            }
+        });
+        add(btId);
 
         btConf.setBackground(new java.awt.Color(51, 51, 51));
         btConf.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -120,7 +132,7 @@ public class ReadBureau extends javax.swing.JPanel {
                 }
                 else{
                     bdao.read(id);
-                    str = str + BureauDAO.s + " " + BureauDAO.tele + BureauDAO.liste;
+                    str = str + "Sigle : " + BureauDAO.s + "   N° de téléphone : " + BureauDAO.tele + BureauDAO.liste;
                     JOptionPane.showMessageDialog(this,str,"Information",JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (SQLException ex) {
@@ -136,9 +148,29 @@ public class ReadBureau extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfIdKeyTyped
 
+    private void btIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIdActionPerformed
+        try {
+            String liste = "";
+            Connection dbConnect = DBConnection.getConnection();
+            if (dbConnect == null) {
+                System.exit(1);
+            }
+            Statement stmt = dbConnect.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from bureau order by idbur");
+            while(rs.next()){
+                liste = liste + "\n" + rs.getInt("IDBUR") + " " + rs.getString("SIGLE");
+            }
+            JOptionPane.showMessageDialog(this,"Liste des bureaux :" + liste,"Information",JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReadEmploye.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DBConnection.closeConnection();
+    }//GEN-LAST:event_btIdActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConf;
+    private javax.swing.JButton btId;
     private javax.swing.JButton btRetour;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField tfId;

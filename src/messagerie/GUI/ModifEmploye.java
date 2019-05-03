@@ -12,20 +12,21 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import messagerie.DAO.BureauDAO;
+import static messagerie.GUI.ModifBureau.idBurModif;
 import myconnections.DBConnection;
+
 /**
  *
  * @author alanl
  */
-public class ModifBureau extends javax.swing.JPanel {
+public class ModifEmploye extends javax.swing.JPanel {
 
     /**
-     * Creates new form ModifBureau
+     * Creates new form ModifEmploye
      */
-    public static int idBurModif;
+    public static int idEmpModif;
     
-    public ModifBureau() {
+    public ModifEmploye() {
         initComponents();
     }
 
@@ -39,7 +40,7 @@ public class ModifBureau extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tfModif = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
         btId = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
@@ -50,19 +51,19 @@ public class ModifBureau extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Entrez l'id du bureau à modifier ");
+        jLabel1.setText("Entrez l'id de l'employé :");
         add(jLabel1);
 
-        tfModif.setBackground(new java.awt.Color(255, 255, 255));
-        tfModif.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        tfModif.setForeground(new java.awt.Color(0, 0, 0));
-        tfModif.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfModif.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfId.setBackground(new java.awt.Color(255, 255, 255));
+        tfId.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfId.setForeground(new java.awt.Color(0, 0, 0));
+        tfId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfModifKeyTyped(evt);
+                tfIdKeyTyped(evt);
             }
         });
-        add(tfModif);
+        add(tfId);
 
         btId.setBackground(new java.awt.Color(51, 51, 51));
         btId.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -99,57 +100,17 @@ public class ModifBureau extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetourActionPerformed
-        Fenetre.f.setContentPane(new MenuGestBur());
+        Fenetre.f.setContentPane(new MenuGestEmp());
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btRetourActionPerformed
 
-    private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
-        String idModif = tfModif.getText();
-        if(idModif.equals("")){
-            JOptionPane.showMessageDialog(this,"Vous n'avez entré aucun id !","Erreur",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            try {
-                idBurModif = Integer.parseInt(idModif);
-                ResultSet rs;
-                int flag = 0;
-                Statement stmt;
-                Connection dbConnect = DBConnection.getConnection();
-                if (dbConnect == null) {
-                    System.exit(1);
-                }
-                stmt = dbConnect.createStatement();
-                rs = stmt.executeQuery("select * from bureau");
-                while(rs.next()){
-                    if(idBurModif == rs.getInt("IDBUR")){
-                        ModifBureau2.id = idBurModif;
-                        ModifBureau2.s = rs.getString("SIGLE");
-                        ModifBureau2.t = rs.getString("TEL");
-                        flag = 1;
-                    }
-                }
-                if(flag == 0){
-                    JOptionPane.showMessageDialog(this,"Cet id ne correspond à aucun bureau !","Erreur",JOptionPane.INFORMATION_MESSAGE);
-                }
-                else{
-                    Fenetre.f.setContentPane(new ModifBureau2());
-                    Fenetre.f.repaint();
-                    Fenetre.f.revalidate();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ReadBureau.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        DBConnection.closeConnection();
-    }//GEN-LAST:event_btConfActionPerformed
-
-    private void tfModifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfModifKeyTyped
+    private void tfIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdKeyTyped
         int l = evt.getKeyChar();
         if(!Character.isDigit(l)){
             evt.consume();
         }
-    }//GEN-LAST:event_tfModifKeyTyped
+    }//GEN-LAST:event_tfIdKeyTyped
 
     private void btIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIdActionPerformed
         try {
@@ -159,16 +120,58 @@ public class ModifBureau extends javax.swing.JPanel {
                 System.exit(1);
             }
             Statement stmt = dbConnect.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from bureau order by idbur");
+            ResultSet rs = stmt.executeQuery("select * from employe order by idemp");
             while(rs.next()){
-                liste = liste + "\n" + rs.getInt("IDBUR") + " " + rs.getString("SIGLE");
+                liste = liste + "\n" + rs.getInt("IDEMP") + " " + rs.getString("NOM");
             }
-            JOptionPane.showMessageDialog(this,"Liste des bureaux :" + liste,"Information",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Liste des employés :" + liste,"Information",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(ReadEmploye.class.getName()).log(Level.SEVERE, null, ex);
         }
         DBConnection.closeConnection();
     }//GEN-LAST:event_btIdActionPerformed
+
+    private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
+        String idModif = tfId.getText();
+        if(idModif.equals("")){
+            JOptionPane.showMessageDialog(this,"Le champ est vide.","Erreur",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            try {
+                idEmpModif = Integer.parseInt(idModif);
+                ResultSet rs;
+                int flag = 0;
+                Statement stmt;
+                Connection dbConnect = DBConnection.getConnection();
+                if (dbConnect == null) {
+                    System.exit(1);
+                }
+                stmt = dbConnect.createStatement();
+                rs = stmt.executeQuery("select * from employe");
+                while(rs.next()){
+                    if(idEmpModif == rs.getInt("IDEMP")){
+                        ModifEmploye2.idEmploye = idEmpModif;
+                        ModifEmploye2.matricule = rs.getString("MATRICULE");
+                        ModifEmploye2.nom = rs.getString("NOM");
+                        ModifEmploye2.prenom = rs.getString("PRENOM");
+                        ModifEmploye2.idBur = rs.getInt("IDBUR");
+                        flag = 1;
+                    }
+                }
+                if(flag == 0){
+                    JOptionPane.showMessageDialog(this,"Cet id ne correspond à aucun employé !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    Fenetre.f.setContentPane(new ModifEmploye2());
+                    Fenetre.f.repaint();
+                    Fenetre.f.revalidate();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ReadBureau.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            DBConnection.closeConnection();
+        }
+    }//GEN-LAST:event_btConfActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -176,6 +179,6 @@ public class ModifBureau extends javax.swing.JPanel {
     private javax.swing.JButton btId;
     private javax.swing.JButton btRetour;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField tfModif;
+    private javax.swing.JTextField tfId;
     // End of variables declaration//GEN-END:variables
 }

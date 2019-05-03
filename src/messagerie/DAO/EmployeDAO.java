@@ -12,6 +12,8 @@ public class EmployeDAO extends DAO<Employe>{
     int idemp, idbur;
     String matricule, nom, prenom;
     public static String liste_msgs = "";
+    public static String new_nom, new_prenom;
+    public static int new_id_bur;
     
          
     /*
@@ -111,6 +113,12 @@ public class EmployeDAO extends DAO<Employe>{
                             }
                         }                   
                         e = new Employe(idemp, matricule, nom, prenom, idbur);
+                        System.out.println("Nouveau nom : ");
+                        new_nom = sc.nextLine();
+                        System.out.println("Nouveau prénom : ");
+                        new_prenom = sc.nextLine();
+                        System.out.println("Id du bureau : ");
+                        new_id_bur = sc2.nextInt();
                         update(e);
                         System.out.println("La modification à bien été effectuée.");
                         DBConnection.closeConnection();
@@ -226,27 +234,19 @@ public class EmployeDAO extends DAO<Employe>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String name, prename;
-        int b;
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
         String query = "update employe set nom=?, prenom=?, idbur=? where idemp=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            System.out.println("Nouveau nom : ");
-            name = sc.nextLine();
-            System.out.println("Nouveau prénom : ");
-            prename = sc.nextLine();
-            System.out.println("Id du bureau : ");
-            b = sc2.nextInt();
-            pstm.setString(1, name);
-            pstm.setString(2, prename);
-            pstm.setInt(3, b);
+            pstm.setString(1, new_nom);
+            pstm.setString(2, new_prenom);
+            pstm.setInt(3, new_id_bur);
             pstm.setInt(4, obj.getIdemp());
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new SQLException("aucune ligne client mise à jour");
             }
-            return read(obj.getIdbur());
+            return read(obj.getIdemp());
         }
     }
     
