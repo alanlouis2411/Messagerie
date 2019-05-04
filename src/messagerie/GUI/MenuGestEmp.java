@@ -73,6 +73,11 @@ public class MenuGestEmp extends javax.swing.JPanel {
         btSupp.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btSupp.setForeground(new java.awt.Color(255, 255, 255));
         btSupp.setText("Virer employé");
+        btSupp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuppActionPerformed(evt);
+            }
+        });
         add(btSupp);
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
@@ -110,6 +115,12 @@ public class MenuGestEmp extends javax.swing.JPanel {
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btModifActionPerformed
+
+    private void btSuppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuppActionPerformed
+        Fenetre.f.setContentPane(new DeleteEmploye());
+        Fenetre.f.repaint();
+        Fenetre.f.revalidate();
+    }//GEN-LAST:event_btSuppActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

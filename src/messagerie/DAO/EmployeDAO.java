@@ -234,8 +234,6 @@ public class EmployeDAO extends DAO<Employe>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        Scanner sc = new Scanner(System.in);
-        Scanner sc2 = new Scanner(System.in);
         String query = "update employe set nom=?, prenom=?, idbur=? where idemp=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, new_nom);
