@@ -25,6 +25,7 @@ public class CreateEmploye extends javax.swing.JPanel {
     /**
      * Creates new form CreateEmploye
      */
+    
     public CreateEmploye() {
         initComponents();
     }
@@ -154,7 +155,6 @@ public class CreateEmploye extends javax.swing.JPanel {
         String nom = tfNom.getText();
         String prenom = tfPrenom.getText();
         String idbureau = tfBureau.getText();
-        int nb_lig = 0;
         if(matricule.equals("") || nom.equals("") || prenom.equals("") || idbureau.equals("")){
             JOptionPane.showMessageDialog(this,"Un ou plusieurs champs sont vides !","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -166,16 +166,18 @@ public class CreateEmploye extends javax.swing.JPanel {
                     System.exit(1);
                 }
                 Statement stmt = dbConnect.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from employe");
+                ResultSet rs = stmt.executeQuery("select * from employe order by idemp");
                 int flag = 0;
                 int bur_exist = 0;
+                int id_new_emp = 1;
                 while(rs.next()){
                     if(matricule.equals(rs.getString("MATRICULE"))){
-                        flag = 1;
+                        flag = 1;                        
                     }
-                    nb_lig++;
+                    if(id_new_emp >= rs.getInt("IDEMP")){
+                        id_new_emp++;
+                    }
                 }
-                nb_lig++;
                 if(flag == 1){
                     JOptionPane.showMessageDialog(this,"Le matricule entré est déjà utilisé !","Erreur",JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -195,12 +197,12 @@ public class CreateEmploye extends javax.swing.JPanel {
                     }
                     if(bur_exist == 0){
                         JOptionPane.showMessageDialog(this,"L'id ne correspond à aucun bureau !","Erreur",JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else{
-                        Employe emp = new Employe(nb_lig, matricule, nom, prenom, idbur);
-                        EmployeDAO emdao = new EmployeDAO();
+                    }                   
+                    else{                        
+                        Employe emp = new Employe(id_new_emp, matricule, nom, prenom, idbur);
+                        EmployeDAO emdao = new EmployeDAO();                 
                         emdao.create(emp);
-                        JOptionPane.showMessageDialog(this,"L'employé a bien été créé.","Succès",JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this,"L'employé a bien été ajouté.","Succès",JOptionPane.INFORMATION_MESSAGE);
                         Fenetre.f.setContentPane(new MenuGestEmp());
                         Fenetre.f.repaint();
                         Fenetre.f.revalidate();

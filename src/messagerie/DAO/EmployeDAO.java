@@ -252,14 +252,40 @@ public class EmployeDAO extends DAO<Employe>{
         Supprime de la table un employé dont l'id à été entré au clavier.
     */
     @Override
-    public void delete(Employe obj) throws SQLException {   
+    public void delete(Employe obj) throws SQLException {
+        int id_virer = obj.getIdemp();
         Connection dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.exit(1);
         }
         String query = "delete from employe where idemp = ?";
-        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setInt(1, obj.getIdemp());
+        String query2 = "select * from message where idemp = ?";
+        String query3 = "delete from message where idmsg = ?";
+        String query4 = "delete from infos where idmsg = ?";
+        String query5 = "select * from infos where idemp = ?";
+        String query6 = "delete from infos where idmsg = ?";
+        String query7 = "delete from message where idmsg = ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2);PreparedStatement pstm3 = dbConnect.prepareStatement(query3);PreparedStatement pstm4 = dbConnect.prepareStatement(query4);
+                PreparedStatement pstm5 = dbConnect.prepareStatement(query5);PreparedStatement pstm6 = dbConnect.prepareStatement(query6);PreparedStatement pstm7 = dbConnect.prepareStatement(query7)) {
+            pstm.setInt(1, id_virer);
+            pstm2.setInt(1, id_virer);
+            ResultSet rs = pstm2.executeQuery();
+            while(rs.next()){
+                int idmsg = rs.getInt("IDMSG");
+                pstm4.setInt(1, idmsg);
+                pstm4.executeUpdate();
+                pstm3.setInt(1, idmsg);
+                pstm3.executeUpdate();
+            }
+            pstm5.setInt(1, id_virer);
+            rs = pstm5.executeQuery();
+            while(rs.next()){
+                int idmsg = rs.getInt("IDMSG");
+                pstm6.setInt(1, idmsg);
+                pstm6.executeUpdate();
+                pstm7.setInt(1, idmsg);
+                pstm7.executeUpdate();
+            }
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new SQLException("aucune ligne employé effacée");

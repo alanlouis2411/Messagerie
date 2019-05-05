@@ -33,7 +33,6 @@ public class Mail extends javax.swing.JPanel {
     Message m;
     MessageDAO mdao = new MessageDAO();
     int id = MenuEmp.idemp;
-    int idmsg;
     String mat_dest;
     public Mail() {
         initComponents();
@@ -127,7 +126,7 @@ public class Mail extends javax.swing.JPanel {
     private void btEnvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnvActionPerformed
         contenu = tfText.getText();
         mat_dest = tfMat.getText();
-        idmsg = 0;
+        int idmsg = 1;
         Connection dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
            System.exit(1);
@@ -138,9 +137,10 @@ public class Mail extends javax.swing.JPanel {
                 rs = stmt.executeQuery("SELECT * FROM message");
                 int flag = 0;
                 while(rs.next()){
-                    idmsg++;
+                    if(idmsg >= rs.getInt("IDMSG")){
+                        idmsg++;
+                    }
                 }
-                idmsg++;
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM employe");
                 while(rs.next()){
@@ -164,15 +164,9 @@ public class Mail extends javax.swing.JPanel {
         }
         else if(contenu.equals("")){
             JOptionPane.showMessageDialog(this,"Vous n'allez quand même pas envoyer un mail vide ?!","Erreur",JOptionPane.INFORMATION_MESSAGE);
-            Fenetre.f.setContentPane(new Mail());
-            Fenetre.f.repaint();
-            Fenetre.f.revalidate();
         }
         else if(mat_dest.equals("")){
             JOptionPane.showMessageDialog(this,"Il faut entrer un matricule !","Erreur",JOptionPane.INFORMATION_MESSAGE);
-            Fenetre.f.setContentPane(new Mail());
-            Fenetre.f.repaint();
-            Fenetre.f.revalidate();
         }
         DBConnection.closeConnection();
     }//GEN-LAST:event_btEnvActionPerformed
