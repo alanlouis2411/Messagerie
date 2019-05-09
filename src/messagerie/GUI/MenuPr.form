@@ -3,7 +3,7 @@
 <Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="0" green="0" red="ff" type="rgb"/>
+      <Color blue="99" green="99" red="0" type="rgb"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -35,7 +35,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="MESSAGERIE"/>
+        <Property name="text" type="java.lang.String" value="Menu principal"/>
         <Property name="alignmentX" type="float" value="2.0"/>
       </Properties>
     </Component>

@@ -42,7 +42,7 @@ public class BoiteRecep extends javax.swing.JPanel {
         msgReçus = new javax.swing.JTextArea();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(51, 51, 255));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.BorderLayout());
 
         msgReçus.setBackground(new java.awt.Color(255, 255, 255));

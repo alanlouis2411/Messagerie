@@ -48,7 +48,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
         btRetour = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(3, 2, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N

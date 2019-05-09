@@ -47,7 +47,7 @@ public class DeleteBureau extends javax.swing.JPanel {
         btConf = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N

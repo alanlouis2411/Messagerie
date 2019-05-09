@@ -13,6 +13,7 @@ public class BureauDAO extends DAO<Bureau>{
     public static String liste;
     public static String s, tele;
     public static String new_sig, new_tel;
+    public static String list_desc;
     
     
     /*
@@ -260,5 +261,22 @@ public class BureauDAO extends DAO<Bureau>{
             }
 
         }
+    }
+    
+    public String search(String s) throws SQLException{
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
+        list_desc = "Bureau(x) correspondant(s) : ";
+        String query = "select * from bureau where sigle like ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, "%"+s+"%");
+            rs = pstm.executeQuery();
+            while(rs.next()){
+                list_desc += "\nSigle : " + rs.getString("SIGLE") + ", n° de téléphone : " + rs.getString("TEL");
+            }
+        }
+        return list_desc;
     }
 }

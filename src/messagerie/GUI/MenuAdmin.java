@@ -32,7 +32,7 @@ public class MenuAdmin extends javax.swing.JPanel {
         btEmpl = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(4, 1, 15, 15));
 
         labAdmin.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N

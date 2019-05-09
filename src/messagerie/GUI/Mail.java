@@ -57,7 +57,7 @@ public class Mail extends javax.swing.JPanel {
 
         jTextField2.setText("jTextField2");
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(6, 1, 20, 20));
 
         tfText.setBackground(new java.awt.Color(255, 255, 255));

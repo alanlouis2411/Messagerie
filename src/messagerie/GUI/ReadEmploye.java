@@ -43,7 +43,7 @@ public class ReadEmploye extends javax.swing.JPanel {
         btConf = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -98,7 +98,7 @@ public class ReadEmploye extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetourActionPerformed
-        Fenetre.f.setContentPane(new MenuGestEmp());
+        Fenetre.f.setContentPane(new ChoixRechercheEmp());
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btRetourActionPerformed

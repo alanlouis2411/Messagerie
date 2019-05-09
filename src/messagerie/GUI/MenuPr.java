@@ -32,13 +32,13 @@ public class MenuPr extends javax.swing.JPanel {
         btEmp = new javax.swing.JButton();
         btQuit = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 0, 0));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(4, 3, 20, 20));
 
         labMess.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         labMess.setForeground(new java.awt.Color(255, 255, 255));
         labMess.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labMess.setText("MESSAGERIE");
+        labMess.setText("Menu principal");
         labMess.setAlignmentX(2.0F);
         add(labMess);
 

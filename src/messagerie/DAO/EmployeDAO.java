@@ -14,6 +14,7 @@ public class EmployeDAO extends DAO<Employe>{
     public static String liste_msgs = "";
     public static String new_nom, new_prenom;
     public static int new_id_bur;
+    public static String emp_desc;
     
          
     /*
@@ -292,5 +293,23 @@ public class EmployeDAO extends DAO<Employe>{
             }
 
         }
+    }
+    
+    public String search(String s) throws SQLException{
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
+        emp_desc = "Employé(s) correspondant(s) : ";
+        String query = "select * from employe where nom like ? or prenom like ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, "%"+s+"%");
+            pstm.setString(2, "%"+s+"%");
+            rs = pstm.executeQuery();
+            while(rs.next()){
+                emp_desc += "\nNom : " + rs.getString("NOM") + ", prénom : " + rs.getString("PRENOM") + ", matricule : " + rs.getString("MATRICULE") + ", bureau n° " + rs.getInt("IDBUR");
+            }
+        }
+        return emp_desc;
     }
 }

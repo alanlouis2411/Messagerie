@@ -38,7 +38,7 @@ public class MenuEmp2 extends javax.swing.JPanel {
         btRecep = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setForeground(new java.awt.Color(204, 204, 0));
         setLayout(new java.awt.GridLayout(4, 1, 20, 20));
 

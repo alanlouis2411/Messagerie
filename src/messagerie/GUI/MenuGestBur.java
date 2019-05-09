@@ -33,7 +33,7 @@ public class MenuGestBur extends javax.swing.JPanel {
         btDelete = new javax.swing.JButton();
         btRetour = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new java.awt.GridLayout(5, 1, 20, 20));
 
         btCrea.setBackground(new java.awt.Color(51, 51, 51));
@@ -105,7 +105,7 @@ public class MenuGestBur extends javax.swing.JPanel {
     }//GEN-LAST:event_btCreaActionPerformed
 
     private void btReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReadActionPerformed
-        Fenetre.f.setContentPane(new ReadBureau());
+        Fenetre.f.setContentPane(new ChoixRechercheBur());
         Fenetre.f.repaint();
         Fenetre.f.revalidate();
     }//GEN-LAST:event_btReadActionPerformed
