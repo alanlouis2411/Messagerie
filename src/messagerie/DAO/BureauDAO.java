@@ -269,9 +269,10 @@ public class BureauDAO extends DAO<Bureau>{
             System.exit(1);
         }
         list_desc = "Bureau(x) correspondant(s) : ";
-        String query = "select * from bureau where sigle like ?";
+        String query = "select * from bureau where sigle like upper(?) or sigle like lower(?)";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, "%"+s+"%");
+            pstm.setString(2, "%"+s+"%");
             rs = pstm.executeQuery();
             while(rs.next()){
                 list_desc += "\nSigle : " + rs.getString("SIGLE") + ", n° de téléphone : " + rs.getString("TEL");

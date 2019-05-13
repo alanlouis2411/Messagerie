@@ -301,10 +301,12 @@ public class EmployeDAO extends DAO<Employe>{
             System.exit(1);
         }
         emp_desc = "Employé(s) correspondant(s) : ";
-        String query = "select * from employe where nom like ? or prenom like ?";
+        String query = "select * from employe where nom like upper(?) or nom like lower(?) or prenom like upper(?) or prenom like lower(?) order by idemp";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, "%"+s+"%");
             pstm.setString(2, "%"+s+"%");
+            pstm.setString(3, "%"+s+"%");
+            pstm.setString(4, "%"+s+"%");
             rs = pstm.executeQuery();
             while(rs.next()){
                 emp_desc += "\nNom : " + rs.getString("NOM") + ", prénom : " + rs.getString("PRENOM") + ", matricule : " + rs.getString("MATRICULE") + ", bureau n° " + rs.getInt("IDBUR");
