@@ -31,13 +31,14 @@ public class BureauDAO extends DAO<Bureau>{
                 System.exit(1);
             }
             System.out.println("1) Créer un nouveau bureau");
-            System.out.println("2) Voir un bureau");
-            System.out.println("3) Modifier un bureau");
-            System.out.println("4) Supprimer un bureau");
-            System.out.println("5) Retour");
+            System.out.println("2) Voir un bureau (recherche par id)");
+            System.out.println("3) Voir un bureau (recherche par sigle)");
+            System.out.println("4) Modifier un bureau");
+            System.out.println("5) Supprimer un bureau");
+            System.out.println("6) Retour");
             System.out.println("\n Entrez votre choix : ");
             choix = sc.nextInt();
-            if(choix < 1 || choix > 5){
+            if(choix < 1 || choix > 6){
                 System.out.println("Choix incorrect");
             }
             else{
@@ -91,7 +92,12 @@ public class BureauDAO extends DAO<Bureau>{
                     }while(flag3 == 0);
                     read(id2);
                     break;
-                case 3:                   
+                case 3 :
+                    System.out.println("Entrez votre recherche :");
+                    String s = sc2.nextLine();
+                    search(s);
+                    break;
+                case 4:                   
                     System.out.println("Quel est l'id du bureau ?");
                     id = sc.nextInt();
                     stmt = dbConnect.createStatement();
@@ -111,7 +117,7 @@ public class BureauDAO extends DAO<Bureau>{
                     update(b);
                     System.out.println("La modification à bien été effectuée.");
                     break;
-                case 4:             
+                case 5:             
                     int flag2 = 0;
                     System.out.println("Quel est l'id du bureau ?");
                     id = sc.nextInt();
@@ -146,7 +152,7 @@ public class BureauDAO extends DAO<Bureau>{
                     break;
                 }
             }
-        }while(choix != 5);
+        }while(choix != 6);
         DBConnection.closeConnection();
     }
     /*
@@ -278,6 +284,7 @@ public class BureauDAO extends DAO<Bureau>{
                 list_desc += "\nSigle : " + rs.getString("SIGLE") + ", n° de téléphone : " + rs.getString("TEL");
             }
         }
+        System.out.println(list_desc);
         return list_desc;
     }
 }

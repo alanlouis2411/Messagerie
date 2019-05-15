@@ -33,13 +33,14 @@ public class EmployeDAO extends DAO<Employe>{
                 System.exit(1);
             }
             System.out.println("1) Entrer un nouvel employé");
-            System.out.println("2) Voir les informations relatives à un employé (+ messages envoyés)");
-            System.out.println("3) Modifier les informations d'un employé");
-            System.out.println("4) Virer un employé");
-            System.out.println("5) Retour");
+            System.out.println("2) Voir les informations relatives à un employé (+ messages envoyés)(recherche par id)");
+            System.out.println("3) Voir les infos d'un employé (recherche par nom/prénom)");
+            System.out.println("4) Modifier les informations d'un employé");
+            System.out.println("5) Virer un employé");
+            System.out.println("6) Retour");
             System.out.println("\n Entrez votre choix : ");
             choix = sc.nextInt();
-            if(choix < 1 || choix > 5){
+            if(choix < 1 || choix > 6){
                 System.out.println("Choix incorrect");
             }
             else{
@@ -99,7 +100,13 @@ public class EmployeDAO extends DAO<Employe>{
                         read(id2);
                         DBConnection.closeConnection();
                         break;
-                    case 3 : 
+                    case 3 :
+                        String s;
+                        System.out.println("Entrez votre recherche : ");
+                        s = sc2.nextLine();
+                        search(s);
+                        break;
+                    case 4 : 
                         System.out.println("Quel est l'id de l'employé ?");
                         idemp = sc.nextInt();
                         stmt = dbConnect.createStatement();
@@ -124,7 +131,7 @@ public class EmployeDAO extends DAO<Employe>{
                         System.out.println("La modification à bien été effectuée.");
                         DBConnection.closeConnection();
                         break;
-                    case 4 : 
+                    case 5 : 
                         System.out.println("Quel est l'id de l'employé ");
                         idemp = sc.nextInt();
                         stmt = dbConnect.createStatement();
@@ -145,7 +152,7 @@ public class EmployeDAO extends DAO<Employe>{
                         break;
                 }
             }
-        }while(choix != 5);
+        }while(choix != 6);
     }
     
     /*
@@ -312,6 +319,7 @@ public class EmployeDAO extends DAO<Employe>{
                 emp_desc += "\nNom : " + rs.getString("NOM") + ", prénom : " + rs.getString("PRENOM") + ", matricule : " + rs.getString("MATRICULE") + ", bureau n° " + rs.getInt("IDBUR");
             }
         }
+        System.out.println(emp_desc);
         return emp_desc;
     }
 }
