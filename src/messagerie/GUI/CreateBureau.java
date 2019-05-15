@@ -122,8 +122,8 @@ public class CreateBureau extends javax.swing.JPanel {
         BureauDAO bdao = new BureauDAO();
         String sigle = tfSigle.getText();
         String tel = tfTel.getText();
-        int nb_lig = 0;
         int flag = 1;
+        int id_bureau = 1;
         Statement stmt = null;
         ResultSet rs = null;
         if(sigle.equals("") || tel.equals("")){
@@ -138,14 +138,16 @@ public class CreateBureau extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
             }
-            try {
-                rs = stmt.executeQuery("select * from bureau");
+            try {               
+                rs = stmt.executeQuery("select * from bureau order by idbur desc");
             } catch (SQLException ex) {
                 Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
+                rs.next();
+                id_bureau = rs.getInt("IDBUR") + 1;
+                rs = stmt.executeQuery("select * from bureau");
                 while(rs.next()){
-                    nb_lig++;
                     String sig = rs.getString("SIGLE");
                     String t = rs.getString("TEL");
                     if((sig.equals(sigle))||(t.equals(tel))){
@@ -156,12 +158,11 @@ public class CreateBureau extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
             }
-            nb_lig++;
             if(flag == 0){
                 JOptionPane.showMessageDialog(this,"Ce sigle/téléphone existe déja !","Erreur",JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                Bureau b = new Bureau(nb_lig, sigle, tel);
+                Bureau b = new Bureau(id_bureau, sigle, tel);               
                 try {
                     bdao.create(b);
                     JOptionPane.showMessageDialog(this,"Bureau créé avec succès.","Succès",JOptionPane.INFORMATION_MESSAGE);

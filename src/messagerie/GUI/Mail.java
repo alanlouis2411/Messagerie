@@ -126,21 +126,18 @@ public class Mail extends javax.swing.JPanel {
     private void btEnvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnvActionPerformed
         contenu = tfText.getText();
         mat_dest = tfMat.getText();
-        int idmsg = 1;
         Connection dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
            System.exit(1);
         }
         if(!contenu.equals("") && !mat_dest.equals("")){
             try {
+                int idmsg = 1;
                 stmt = dbConnect.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM message");
+                rs = stmt.executeQuery("SELECT * FROM message order by idmsg desc");
                 int flag = 0;
-                while(rs.next()){
-                    if(idmsg >= rs.getInt("IDMSG")){
-                        idmsg++;
-                    }
-                }
+                rs.next();
+                idmsg = rs.getInt("IDMSG") + 1;
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM employe");
                 while(rs.next()){
@@ -154,7 +151,7 @@ public class Mail extends javax.swing.JPanel {
                 }
                 else{
                     m = new Message(idmsg,contenu,dateenvoi,id);
-                    MessageDAO.id_destinataire = id_dest;
+                    MessageDAO.id_destinataire = id_dest;                   
                     mdao.create(m);
                     JOptionPane.showMessageDialog(this,"Message envoyé!","succès",JOptionPane.INFORMATION_MESSAGE);
                 }

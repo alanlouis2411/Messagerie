@@ -166,16 +166,17 @@ public class CreateEmploye extends javax.swing.JPanel {
                     System.exit(1);
                 }
                 Statement stmt = dbConnect.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from employe order by idemp");
+                ResultSet rs = stmt.executeQuery("select * from employe order by idemp desc");
                 int flag = 0;
                 int bur_exist = 0;
                 int id_new_emp = 1;
+                if(rs.next()){
+                    id_new_emp = rs.getInt("IDEMP") + 1;
+                }
+                rs = stmt.executeQuery("select * from employe order by idemp");
                 while(rs.next()){
                     if(matricule.equals(rs.getString("MATRICULE"))){
                         flag = 1;                        
-                    }
-                    if(id_new_emp >= rs.getInt("IDEMP")){
-                        id_new_emp++;
                     }
                 }
                 if(flag == 1){
