@@ -47,16 +47,18 @@ public class BureauDAO extends DAO<Bureau>{
                     int flag;
                     System.out.println("Création d'un nouveau bureau : ");
                     do{
-                        nb_lig = 0;
+                        nb_lig = 1;
                         flag = 1;
                         stmt = dbConnect.createStatement();
-                        rs = stmt.executeQuery("select * from bureau");
+                        rs = stmt.executeQuery("select * from bureau order by idbur desc");
+                        if(rs.next()){
+                            nb_lig = rs.getInt("IDBUR") + 1;
+                        }
                         System.out.println("Sigle du nouveau bureau : ");
                         sigle = sc2.nextLine();
                         System.out.println("Numéro de téléphone du nouveau bureau : ");
                         tel = sc2.nextLine();
                         while(rs.next()){
-                            nb_lig++;
                             String sig = rs.getString("SIGLE");
                             String t = rs.getString("TEL");                           
                             if((sig.equals(sigle))||(t.equals(tel))){
@@ -64,14 +66,15 @@ public class BureauDAO extends DAO<Bureau>{
                                 break;
                             }
                         }
-                        nb_lig++;
                         if(flag == 0){
                             System.out.println("Ce bureau existe déjà !");
                         }
                     }while(flag == 0);
                     b = new Bureau(nb_lig, sigle, tel);
                     create(b);
+                    System.out.println(read(nb_lig));
                     System.out.println("Bureau créé!");   
+                    
                     break;
                 case 2:
                     int id2;
@@ -90,7 +93,7 @@ public class BureauDAO extends DAO<Bureau>{
                             System.out.println("Cet id n'existe pas !");
                         }
                     }while(flag3 == 0);
-                    read(id2);
+                    System.out.println(read(id2));
                     break;
                 case 3 :
                     System.out.println("Entrez votre recherche :");
@@ -98,29 +101,67 @@ public class BureauDAO extends DAO<Bureau>{
                     search(s);
                     break;
                 case 4:                   
-                    System.out.println("Quel est l'id du bureau ?");
-                    id = sc.nextInt();
                     stmt = dbConnect.createStatement();
-                    rs = stmt.executeQuery("select * from bureau");
-                    while(rs.next()){
-                        if(rs.getInt("IDBUR") == id){
-                            sigle = rs.getString("SIGLE");
-                            tel = rs.getString("TEL");
-                            break;
+                    int flag4;
+                    do{
+                        System.out.println("Quel est l'id du bureau ?");
+                        id = sc.nextInt();
+                        flag4 = 0;
+                        rs = stmt.executeQuery("select * from bureau");
+                        while(rs.next()){
+                            if(rs.getInt("IDBUR") == id){
+                                sigle = rs.getString("SIGLE");
+                                tel = rs.getString("TEL");
+                                flag4 = 1;
+                                break;
+                            }
+                        } 
+                        if(flag4 == 0){
+                            System.out.println("L'id entré ne correspond à aucun bureau.");
                         }
-                    }                  
+                    }while(flag4 == 0);
                     b = new Bureau(id, sigle, tel);
-                    System.out.println("Nouveau sigle : ");
-                    new_sig = sc2.nextLine();
-                    System.out.println("Nouveau numéro : ");
-                    new_tel = sc2.nextLine();
+                    do{
+                        flag4 = 0;
+                        System.out.println("Nouveau sigle : ");
+                        new_sig = sc2.nextLine();
+                        System.out.println("Nouveau numéro : ");
+                        new_tel = sc2.nextLine();
+                        stmt = dbConnect.createStatement();
+                        rs = stmt.executeQuery("select * from bureau");
+                        while(rs.next()){
+                            String sig = rs.getString("SIGLE");
+                            String t = rs.getString("TEL");                           
+                            if((sig.equals(new_sig))||(t.equals(new_tel))){
+                                flag4 = 1;
+                                break;
+                            }
+                        }
+                        if(flag4 == 1){
+                            System.out.println("Le sigle/n° de téléphone est déjà pris !");
+                        }
+                    }while(flag4 == 1);
                     update(b);
                     System.out.println("La modification à bien été effectuée.");
                     break;
                 case 5:             
                     int flag2 = 0;
-                    System.out.println("Quel est l'id du bureau ?");
-                    id = sc.nextInt();
+                    do{
+                        System.out.println("Quel est l'id du bureau ?");
+                        id = sc.nextInt();
+                        stmt = dbConnect.createStatement();
+                        rs = stmt.executeQuery("select * from bureau");
+                        while(rs.next()){
+                            if(id == rs.getInt("IDBUR")){
+                                flag2 = 1;
+                                break;
+                            }
+                        }
+                        if(flag2 == 0){
+                            System.out.println("L'id e correspond à aucun bureau");
+                        }
+                    }while(flag2 == 0);
+                    flag2 = 0;
                     stmt = dbConnect.createStatement();
                     rs = stmt.executeQuery("select * from bureau");
                     String q = "select * from employe where idbur = ?";
@@ -213,7 +254,7 @@ public class BureauDAO extends DAO<Bureau>{
                 if (rs.next()) {
                     s = rs.getString("SIGLE");
                     tele = rs.getString("TEL");
-                    System.out.println("Sigle : " + s + " N° de téléphone : " + tele+"\n\n");
+                    //System.out.println("Id : " + idb + ", sigle : " + s + " N° de téléphone : " + tele+"\n\n");
                     return new Bureau(idb, s, tele);                 
                 }
                 else {
@@ -241,7 +282,7 @@ public class BureauDAO extends DAO<Bureau>{
             pstm.setString(2, new_tel);
             int n = pstm.executeUpdate();
             if (n == 0) {
-                throw new SQLException("aucune ligne client mise à jour");
+                throw new SQLException("aucune ligne bureau mise à jour");
             }
             return read(obj.getIdbur());
         }
