@@ -35,7 +35,9 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Menu principal"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/messagerie/GUI/condor.png"/>
+        </Property>
         <Property name="alignmentX" type="float" value="2.0"/>
       </Properties>
     </Component>

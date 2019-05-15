@@ -38,7 +38,7 @@ public class MenuPr extends javax.swing.JPanel {
         labMess.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         labMess.setForeground(new java.awt.Color(255, 255, 255));
         labMess.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labMess.setText("Menu principal");
+        labMess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/messagerie/GUI/condor.png"))); // NOI18N
         labMess.setAlignmentX(2.0F);
         add(labMess);
 
