@@ -55,7 +55,7 @@ public class ChoixRechercheBur extends javax.swing.JPanel {
         btSigle.setBackground(new java.awt.Color(51, 51, 51));
         btSigle.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btSigle.setForeground(new java.awt.Color(255, 255, 255));
-        btSigle.setText("Par sigle");
+        btSigle.setText("Par description");
         btSigle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSigleActionPerformed(evt);

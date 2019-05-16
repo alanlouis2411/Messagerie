@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import menus_messagerie.MenuBureau;
 import messagerie.Bureau;
 import messagerie.DAO.BureauDAO;
 import myconnections.DBConnection;
@@ -25,7 +26,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
     /**
      * Creates new form ModifBureau2
      */
-    public static String s, t;
+    public static String s, t, d;
     public static int id;
     
     public ModifBureau2() {
@@ -45,11 +46,13 @@ public class ModifBureau2 extends javax.swing.JPanel {
         tfSigle = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         tfTel = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfDesc = new javax.swing.JTextField();
         btRetour = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
-        setLayout(new java.awt.GridLayout(3, 2, 20, 20));
+        setLayout(new java.awt.GridLayout(4, 2, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -84,6 +87,18 @@ public class ModifBureau2 extends javax.swing.JPanel {
             }
         });
         add(tfTel);
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Nouvelle description :");
+        add(jLabel3);
+
+        tfDesc.setBackground(new java.awt.Color(255, 255, 255));
+        tfDesc.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfDesc.setForeground(new java.awt.Color(0, 0, 0));
+        tfDesc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(tfDesc);
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -129,12 +144,11 @@ public class ModifBureau2 extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTelKeyTyped
 
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
-        BureauDAO.new_sig = tfSigle.getText();
-        BureauDAO.new_tel = tfTel.getText();
-        if(BureauDAO.new_sig.equals("") || BureauDAO.new_tel.equals("")){
+        MenuBureau.new_sig = tfSigle.getText();
+        MenuBureau.new_tel = tfTel.getText();
+        MenuBureau.new_desc = tfDesc.getText();
+        if(MenuBureau.new_sig.equals("") || MenuBureau.new_tel.equals("") || MenuBureau.new_desc.equals("")){
             JOptionPane.showMessageDialog(this,"Les champs sont vides !","Erreur",JOptionPane.INFORMATION_MESSAGE);
-            Fenetre.f.repaint();
-            Fenetre.f.revalidate();
         }
         else{
             try {
@@ -148,7 +162,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("select * from bureau");
                 while(rs.next()){
-                    if(id != rs.getInt("IDBUR") && (BureauDAO.new_sig.equals(rs.getString("SIGLE")) || BureauDAO.new_tel.equals("TEL"))){
+                    if(id != rs.getInt("IDBUR") && (MenuBureau.new_sig.equals(rs.getString("SIGLE")) || MenuBureau.new_tel.equals("TEL"))){
                         flag = 1;
                         break;
                     }
@@ -160,7 +174,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
                     Fenetre.f.revalidate();
                 }
                 else{
-                    Bureau b = new Bureau(id, s, t);
+                    Bureau b = new Bureau(id, s, t, d);
                     BureauDAO bdao = new BureauDAO();
                     bdao.update(b);
                     Fenetre.f.setContentPane(new MenuGestBur());
@@ -181,6 +195,8 @@ public class ModifBureau2 extends javax.swing.JPanel {
     private javax.swing.JButton btRetour;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField tfDesc;
     private javax.swing.JTextField tfSigle;
     private javax.swing.JTextField tfTel;
     // End of variables declaration//GEN-END:variables

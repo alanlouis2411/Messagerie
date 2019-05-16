@@ -26,7 +26,7 @@ public class DeleteBureau extends javax.swing.JPanel {
      * Creates new form DeleteBureau
      */
     
-    String sigle, tel; 
+    String sigle, tel, descrip; 
     
     public DeleteBureau() {
         initComponents();
@@ -150,7 +150,7 @@ public class DeleteBureau extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this,"Impossible car des employés sont assignés à ce bureau : "+liste,"Erreur",JOptionPane.INFORMATION_MESSAGE);
                         break;
                     case 2:
-                        Bureau b = new Bureau(idb, sigle, tel);
+                        Bureau b = new Bureau(idb, sigle, tel, descrip);
                         bdao.delete(b);
                         JOptionPane.showMessageDialog(this,"La suppression à bien été effectuée.","Succès",JOptionPane.INFORMATION_MESSAGE);
                         Fenetre.f.setContentPane(new MenuGestBur());

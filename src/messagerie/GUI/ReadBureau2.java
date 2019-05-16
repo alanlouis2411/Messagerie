@@ -46,7 +46,7 @@ public class ReadBureau2 extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Sigle :");
+        jLabel1.setText("Description :");
         add(jLabel1);
 
         tfSigle.setBackground(new java.awt.Color(255, 255, 255));

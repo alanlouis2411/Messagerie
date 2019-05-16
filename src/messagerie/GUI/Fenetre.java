@@ -5,6 +5,15 @@
  */
 package messagerie.GUI;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 
 
 
@@ -47,7 +56,7 @@ public class Fenetre extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -72,7 +81,7 @@ public class Fenetre extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        
+        //playSound("C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI/song.wav");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 f.setLocationRelativeTo(null);
@@ -80,10 +89,18 @@ public class Fenetre extends javax.swing.JFrame {
                 f.setSize(400,300);              
                 f.setContentPane(new MenuPr());
                 f.repaint();
-                f.revalidate();
+                f.revalidate();                
             }
         });
     }
+    
+    static void playSound(String soundFile) throws MalformedURLException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File f = new File("./" + soundFile);
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());  
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioIn);
+        clip.start();
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

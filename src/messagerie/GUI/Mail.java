@@ -136,8 +136,9 @@ public class Mail extends javax.swing.JPanel {
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM message order by idmsg desc");
                 int flag = 0;
-                rs.next();
-                idmsg = rs.getInt("IDMSG") + 1;
+                if(rs.next()){;
+                    idmsg = rs.getInt("IDMSG") + 1;
+                }
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM employe");
                 while(rs.next()){

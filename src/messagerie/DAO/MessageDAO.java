@@ -151,7 +151,7 @@ public class MessageDAO extends DAO<Message>{
                         rs4.next();
                         nom = rs4.getString("NOM");
                         prenom = rs4.getString("PRENOM");
-                        boite = boite + "\n" + c+", envoyé le "+date+" par "+prenom+" "+nom+"\n";
+                        boite = boite + "\n" + c+", envoyé le "+date+"\n par "+prenom+" "+nom+"\n";
                         System.out.println(c+", envoyé le "+date+" par "+prenom+" "+nom+"\n");
                     }
                 if(flag == 1){

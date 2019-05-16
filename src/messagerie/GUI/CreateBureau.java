@@ -42,11 +42,13 @@ public class CreateBureau extends javax.swing.JPanel {
         tfSigle = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         tfTel = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        tfDesc = new javax.swing.JTextField();
         btRetour = new javax.swing.JButton();
         btConf = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 153));
-        setLayout(new java.awt.GridLayout(3, 2, 20, 20));
+        setLayout(new java.awt.GridLayout(4, 2, 20, 20));
 
         labSigle.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         labSigle.setForeground(new java.awt.Color(255, 255, 255));
@@ -85,6 +87,18 @@ public class CreateBureau extends javax.swing.JPanel {
         });
         add(tfTel);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("DESCRIPTION :");
+        add(jLabel1);
+
+        tfDesc.setBackground(new java.awt.Color(255, 255, 255));
+        tfDesc.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        tfDesc.setForeground(new java.awt.Color(0, 0, 0));
+        tfDesc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(tfDesc);
+
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
         btRetour.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         btRetour.setForeground(new java.awt.Color(255, 255, 255));
@@ -122,12 +136,16 @@ public class CreateBureau extends javax.swing.JPanel {
         BureauDAO bdao = new BureauDAO();
         String sigle = tfSigle.getText();
         String tel = tfTel.getText();
+        String des = tfDesc.getText();
         int flag = 1;
         int id_bureau = 1;
         Statement stmt = null;
         ResultSet rs = null;
-        if(sigle.equals("") || tel.equals("")){
+        if(sigle.equals("") || tel.equals("") || des.equals("")){
             JOptionPane.showMessageDialog(this,"Un ou plusieurs champs sont vides !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(sigle.length() > 5){
+            JOptionPane.showMessageDialog(this,"Le sigle est trop long !","Erreur",JOptionPane.INFORMATION_MESSAGE);
             Fenetre.f.setContentPane(new CreateBureau());
             Fenetre.f.repaint();
             Fenetre.f.revalidate();
@@ -162,7 +180,7 @@ public class CreateBureau extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this,"Ce sigle/téléphone existe déja !","Erreur",JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                Bureau b = new Bureau(id_bureau, sigle, tel);               
+                Bureau b = new Bureau(id_bureau, sigle, tel, des);               
                 try {
                     bdao.create(b);
                     JOptionPane.showMessageDialog(this,"Bureau créé avec succès.","Succès",JOptionPane.INFORMATION_MESSAGE);
@@ -199,8 +217,10 @@ public class CreateBureau extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConf;
     private javax.swing.JButton btRetour;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labSigle;
+    private javax.swing.JTextField tfDesc;
     private javax.swing.JTextField tfSigle;
     private javax.swing.JTextField tfTel;
     // End of variables declaration//GEN-END:variables

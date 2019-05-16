@@ -3,6 +3,7 @@ package messagerie;
 
 import java.sql.*;
 import java.util.Scanner;
+import menus_messagerie.MenuBureau;
 import messagerie.DAO.BureauDAO;
 import messagerie.DAO.EmployeDAO;
 import messagerie.DAO.MessageDAO;
@@ -19,6 +20,7 @@ public class Gestion_messagerie {
     EmployeDAO empdao = new EmployeDAO();
     BureauDAO burdao = new BureauDAO();
     MessageDAO messdao = new MessageDAO();
+    MenuBureau mb = new MenuBureau();
     int flag;
     
     /**
@@ -67,7 +69,8 @@ public class Gestion_messagerie {
                            else{
                                switch (choix2){
                                    case 1 : 
-                                       burdao.menu();
+                                       //burdao.menu();
+                                       mb.menu();
                                        break;
                                    case 2 :
                                        empdao.menu();
