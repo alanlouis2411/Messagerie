@@ -5,6 +5,8 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,13 +14,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import messagerie.Bureau;
-import messagerie.DAO.BureauDAO;
 import messagerie.DAO.EmployeDAO;
 import messagerie.Employe;
-import static messagerie.GUI.ModifBureau2.id;
-import static messagerie.GUI.ModifBureau2.s;
-import static messagerie.GUI.ModifBureau2.t;
 import myconnections.DBConnection;
 
 /**
@@ -37,6 +34,8 @@ public class ModifEmploye2 extends javax.swing.JPanel {
         initComponents();
     }
 
+    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,7 +142,8 @@ public class ModifEmploye2 extends javax.swing.JPanel {
         EmployeDAO.new_prenom = tfPrenom.getText();
         String id = tfId.getText();
         if(EmployeDAO.new_nom.equals("") || EmployeDAO.new_prenom.equals("") || id.equals("")){
-            JOptionPane.showMessageDialog(this,"Les champs sont vides !","Erreur",JOptionPane.INFORMATION_MESSAGE);
+            mp3player.play();
+            JOptionPane.showMessageDialog(this,"Un ou plusieurs champs sont vides !","Erreur",JOptionPane.INFORMATION_MESSAGE);
             Fenetre.f.repaint();
             Fenetre.f.revalidate();
         }
@@ -175,6 +175,7 @@ public class ModifEmploye2 extends javax.swing.JPanel {
                     Fenetre.f.revalidate();
                 }
                 else{
+                    mp3player.play();
                     JOptionPane.showMessageDialog(this,"L'id de bureau entré n'existe pas.","Erreur",JOptionPane.INFORMATION_MESSAGE);          
                 }
             } catch (SQLException ex) {

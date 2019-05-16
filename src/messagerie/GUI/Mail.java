@@ -5,6 +5,8 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +40,8 @@ public class Mail extends javax.swing.JPanel {
         initComponents();
     }
 
+    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,6 +152,7 @@ public class Mail extends javax.swing.JPanel {
                     }
                 }
                 if(flag == 0){
+                    mp3player.play();
                     JOptionPane.showMessageDialog(this,"Matricule incorrect.","Erreur",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
@@ -161,9 +166,11 @@ public class Mail extends javax.swing.JPanel {
             }
         }
         else if(contenu.equals("")){
+            mp3player.play();
             JOptionPane.showMessageDialog(this,"Vous n'allez quand même pas envoyer un mail vide ?!","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         else if(mat_dest.equals("")){
+            mp3player.play();
             JOptionPane.showMessageDialog(this,"Il faut entrer un matricule !","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         DBConnection.closeConnection();

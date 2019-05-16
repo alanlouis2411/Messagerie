@@ -5,6 +5,8 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +31,8 @@ public class DeleteEmploye extends javax.swing.JPanel {
         initComponents();
     }
 
+    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -135,6 +139,7 @@ public class DeleteEmploye extends javax.swing.JPanel {
         String mat = "", nom = "", prenom = "";
         int idbur = 0;
         if(id.equals("")){
+            mp3player.play();
             JOptionPane.showMessageDialog(this,"Vous n'avez entré aucun id.","Erreur !",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
@@ -158,6 +163,7 @@ public class DeleteEmploye extends javax.swing.JPanel {
                     }
                 }
                 if(flag == 0){
+                    mp3player.play();
                     JOptionPane.showMessageDialog(this,"L'id entré ne correspond à aucun employé.","Erreur !",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{

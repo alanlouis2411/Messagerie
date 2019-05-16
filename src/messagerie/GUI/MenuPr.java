@@ -5,6 +5,11 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author alanl
@@ -17,7 +22,8 @@ public class MenuPr extends javax.swing.JPanel {
     public MenuPr() {
         initComponents();
     }
-
+    public static final String song = "C:\\Users\\alanl\\Desktop\\closing.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,6 +90,12 @@ public class MenuPr extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQuitActionPerformed
+        mp3player.play();
+        try {
+            Thread.sleep(2300);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MenuPr.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }//GEN-LAST:event_btQuitActionPerformed
 

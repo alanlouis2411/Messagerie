@@ -5,6 +5,8 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +14,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import messagerie.DAO.BureauDAO;
 import myconnections.DBConnection;
 /**
  *
@@ -29,6 +30,8 @@ public class ModifBureau extends javax.swing.JPanel {
         initComponents();
     }
 
+    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,6 +110,7 @@ public class ModifBureau extends javax.swing.JPanel {
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
         String idModif = tfModif.getText();
         if(idModif.equals("")){
+            mp3player.play();
             JOptionPane.showMessageDialog(this,"Vous n'avez entré aucun id !","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
@@ -130,6 +134,7 @@ public class ModifBureau extends javax.swing.JPanel {
                     }
                 }
                 if(flag == 0){
+                    mp3player.play();
                     JOptionPane.showMessageDialog(this,"Cet id ne correspond à aucun bureau !","Erreur",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{

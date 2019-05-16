@@ -5,6 +5,7 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,7 +35,6 @@ public class Fenetre extends javax.swing.JFrame {
     public Fenetre() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +81,7 @@ public class Fenetre extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        //playSound("C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI/song.wav");
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 f.setLocationRelativeTo(null);
@@ -89,7 +89,7 @@ public class Fenetre extends javax.swing.JFrame {
                 f.setSize(400,300);              
                 f.setContentPane(new MenuPr());
                 f.repaint();
-                f.revalidate();                
+                f.revalidate();     
             }
         });
     }

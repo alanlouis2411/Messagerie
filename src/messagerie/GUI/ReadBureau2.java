@@ -5,6 +5,8 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,6 +27,9 @@ public class ReadBureau2 extends javax.swing.JPanel {
     public ReadBureau2() {
         initComponents();
     }
+    
+    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,6 +97,7 @@ public class ReadBureau2 extends javax.swing.JPanel {
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
         String sig = tfSigle.getText();
         if(sig.equals("")){
+            mp3player.play();
             JOptionPane.showMessageDialog(this,"Le champ est vide.","Erreur",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
