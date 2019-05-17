@@ -100,6 +100,11 @@ public class CreateBureau extends javax.swing.JPanel {
         tfDesc.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         tfDesc.setForeground(new java.awt.Color(0, 0, 0));
         tfDesc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfDesc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDescKeyTyped(evt);
+            }
+        });
         add(tfDesc);
 
         btRetour.setBackground(new java.awt.Color(51, 51, 51));
@@ -216,8 +221,15 @@ public class CreateBureau extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTelKeyTyped
 
     private void tfTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTelActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_tfTelActionPerformed
+
+    private void tfDescKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescKeyTyped
+        char l = evt.getKeyChar();
+        if(!Character.isLetter(l)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfDescKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

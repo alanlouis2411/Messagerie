@@ -8,6 +8,7 @@ package messagerie.GUI;
 import jaco.mp3.player.MP3Player;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,8 +32,20 @@ public class ModifBureau2 extends javax.swing.JPanel {
     public static String s, t, d;
     public static int id;
     
-    public ModifBureau2() {
+    public ModifBureau2() throws SQLException {
         initComponents();
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
+        PreparedStatement pstmt = dbConnect.prepareStatement("select * from bureau where idbur = ?");
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        tfSigle.setText(rs.getString("SIGLE"));
+        tfTel.setText(rs.getString("TEL"));
+        tfDesc.setText(rs.getString("DESCRIPTION"));
     }
 
     public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
@@ -167,7 +180,7 @@ public class ModifBureau2 extends javax.swing.JPanel {
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("select * from bureau");
                 while(rs.next()){
-                    if(id != rs.getInt("IDBUR") && (MenuBureau.new_sig.equals(rs.getString("SIGLE")) || MenuBureau.new_tel.equals("TEL"))){
+                    if(id != rs.getInt("IDBUR") && (MenuBureau.new_sig.equals(rs.getString("SIGLE")) || MenuBureau.new_tel.equals(rs.getString("TEL")))){
                         flag = 1;
                         break;
                     }

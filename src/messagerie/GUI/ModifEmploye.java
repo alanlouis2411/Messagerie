@@ -136,6 +136,10 @@ public class ModifEmploye extends javax.swing.JPanel {
 
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
         String idModif = tfId.getText();
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
         if(idModif.equals("")){
             mp3player.play();
             JOptionPane.showMessageDialog(this,"Le champ est vide.","Erreur",JOptionPane.INFORMATION_MESSAGE);
@@ -145,11 +149,7 @@ public class ModifEmploye extends javax.swing.JPanel {
                 idEmpModif = Integer.parseInt(idModif);
                 ResultSet rs;
                 int flag = 0;
-                Statement stmt;
-                Connection dbConnect = DBConnection.getConnection();
-                if (dbConnect == null) {
-                    System.exit(1);
-                }
+                Statement stmt;             
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("select * from employe");
                 while(rs.next()){
@@ -173,9 +173,9 @@ public class ModifEmploye extends javax.swing.JPanel {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ReadBureau.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            DBConnection.closeConnection();
+            }            
         }
+        DBConnection.closeConnection();
     }//GEN-LAST:event_btConfActionPerformed
 
 

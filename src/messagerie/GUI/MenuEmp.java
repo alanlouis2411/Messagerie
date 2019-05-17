@@ -5,6 +5,8 @@
  */
 package messagerie.GUI;
 
+import jaco.mp3.player.MP3Player;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,6 +37,8 @@ public class MenuEmp extends javax.swing.JPanel {
         initComponents();
     }
 
+    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,6 +135,7 @@ public class MenuEmp extends javax.swing.JPanel {
                 Logger.getLogger(MenuEmp.class.getName()).log(Level.SEVERE, null, ex);
             }
             if(flag == 0){
+                mp3player.play();
                 JOptionPane.showMessageDialog(this,"Le matricule entré n'existe pas !","ERREUR",JOptionPane.INFORMATION_MESSAGE);
                 Fenetre.f.setContentPane(new MenuEmp());
                 Fenetre.f.repaint();
@@ -143,6 +148,7 @@ public class MenuEmp extends javax.swing.JPanel {
             }
        }
        else{
+           mp3player.play();
            JOptionPane.showMessageDialog(this,"Le champ est vide !","ERREUR",JOptionPane.INFORMATION_MESSAGE);
            Fenetre.f.setContentPane(new MenuEmp());
            Fenetre.f.repaint();

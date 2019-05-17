@@ -104,6 +104,9 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDescKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btRetour">
       <Properties>

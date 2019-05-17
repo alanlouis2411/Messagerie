@@ -55,10 +55,10 @@ public class BureauDAOTest {
     @Test
     public void testCreate() throws Exception {
         System.out.println("create");
-        Bureau obj = new Bureau(0,"Test","000000000");
+        Bureau obj = new Bureau(0,"Test","000000000","");
         BureauDAO instance = new BureauDAO();
         instance.setConnection(dbConnect);
-        Bureau expResult = new Bureau(0,"Test","000000000");
+        Bureau expResult = new Bureau(0,"Test","000000000","");
         Bureau result = instance.create(obj);
         
         assertEquals("sigles différents",expResult.getSigle(), result.getSigle());
@@ -66,7 +66,7 @@ public class BureauDAOTest {
         //etc
         assertNotEquals("id non généré",expResult.getIdbur(),result.getIdbur());
         int idclient=result.getIdbur();
-        obj=new Bureau(0,"Test","000000000");
+        obj=new Bureau(0,"Test","000000000","");
         try{
             Bureau result2 = instance.create(obj);
             fail("exception de doublon non déclenchée");
@@ -75,7 +75,7 @@ public class BureauDAOTest {
         catch(SQLException e){}
         instance.delete(result);
         
-          obj=new Bureau(0,"Test2","000000001");
+          obj=new Bureau(0,"Test2","000000001","");
         try{
             Bureau result3 = instance.create(obj);
             fail("exception de code postal non déclenchée");
@@ -94,7 +94,7 @@ public class BureauDAOTest {
         int idbureau = 0;
         BureauDAO instance = new BureauDAO();
         instance.setConnection(dbConnect);
-        Bureau obj = new Bureau(0,"Test","000000000");
+        Bureau obj = new Bureau(0,"Test","000000000","");
         Bureau expResult = instance.create(obj);
         idbureau=expResult.getIdbur();
         Bureau result = instance.read(idbureau);
@@ -116,7 +116,7 @@ public class BureauDAOTest {
     @Test
     public void testUpdate() throws Exception {
         System.out.println("update");
-        Bureau obj = new Bureau(0,"Test","000000000");
+        Bureau obj = new Bureau(0,"Test","000000000","");
         BureauDAO instance = new BureauDAO();
         instance.setConnection(dbConnect);
         obj = instance.create(obj);
@@ -140,7 +140,7 @@ public class BureauDAOTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Bureau obj = new Bureau(0,"Test","000000000");
+        Bureau obj = new Bureau(0,"Test","000000000","");
         BureauDAO instance = new BureauDAO();
         instance.setConnection(dbConnect);
         obj = instance.create(obj);
@@ -159,8 +159,8 @@ public class BureauDAOTest {
     @Test
     public void testSearch() throws Exception {
         System.out.println("rechNom");
-        Bureau obj1 = new Bureau(0,"Test","000000000");
-        Bureau obj2 = new Bureau(0,"Test2","000000001");
+        Bureau obj1 = new Bureau(0,"Test","000000000","");
+        Bureau obj2 = new Bureau(0,"Test2","000000001","");
         String nomrech = "Test";
         BureauDAO instance = new BureauDAO();
         instance.setConnection(dbConnect);

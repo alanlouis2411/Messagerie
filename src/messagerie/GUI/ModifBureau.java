@@ -108,6 +108,10 @@ public class ModifBureau extends javax.swing.JPanel {
     }//GEN-LAST:event_btRetourActionPerformed
 
     private void btConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfActionPerformed
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
         String idModif = tfModif.getText();
         if(idModif.equals("")){
             mp3player.play();
@@ -118,11 +122,7 @@ public class ModifBureau extends javax.swing.JPanel {
                 idBurModif = Integer.parseInt(idModif);
                 ResultSet rs;
                 int flag = 0;
-                Statement stmt;
-                Connection dbConnect = DBConnection.getConnection();
-                if (dbConnect == null) {
-                    System.exit(1);
-                }
+                Statement stmt;               
                 stmt = dbConnect.createStatement();
                 rs = stmt.executeQuery("select * from bureau");
                 while(rs.next()){

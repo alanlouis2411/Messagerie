@@ -8,6 +8,7 @@ package messagerie.GUI;
 import jaco.mp3.player.MP3Player;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import messagerie.DAO.EmployeDAO;
 import messagerie.Employe;
+import static messagerie.GUI.ModifBureau2.id;
 import myconnections.DBConnection;
 
 /**
@@ -30,8 +32,20 @@ public class ModifEmploye2 extends javax.swing.JPanel {
     
     public static String matricule, nom, prenom;
     public static int idEmploye, idBur;
-    public ModifEmploye2() {
+    public ModifEmploye2() throws SQLException {
         initComponents();
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.exit(1);
+        }
+        PreparedStatement pstmt = dbConnect.prepareStatement("select * from employe where idemp = ?");
+        pstmt.setInt(1, idEmploye);
+        pstmt.executeUpdate();
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        tfNom.setText(rs.getString("NOM"));
+        tfPrenom.setText(rs.getString("PRENOM"));
+        tfId.setText(rs.getString("IDBUR"));
     }
 
     public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
