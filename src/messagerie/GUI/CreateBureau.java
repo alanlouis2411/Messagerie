@@ -172,13 +172,14 @@ public class CreateBureau extends javax.swing.JPanel {
                 Logger.getLogger(CreateBureau.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                rs.next();
-                id_bureau = rs.getInt("IDBUR") + 1;
+                if(rs.next()){
+                    id_bureau = rs.getInt("IDBUR") + 1;
+                }
                 rs = stmt.executeQuery("select * from bureau");
                 while(rs.next()){
                     String sig = rs.getString("SIGLE");
                     String t = rs.getString("TEL");
-                    if((sig.equals(sigle))||(t.equals(tel))){
+                    if((sig.equalsIgnoreCase(sig))||(t.equals(tel))){
                         flag = 0;
                         break;
                     }
@@ -225,10 +226,7 @@ public class CreateBureau extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTelActionPerformed
 
     private void tfDescKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescKeyTyped
-        char l = evt.getKeyChar();
-        if(!Character.isLetter(l)){
-            evt.consume();
-        }
+
     }//GEN-LAST:event_tfDescKeyTyped
 
 

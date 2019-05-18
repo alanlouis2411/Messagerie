@@ -108,7 +108,7 @@ public class ReadBureau2 extends javax.swing.JPanel {
                 }
                 BureauDAO burdao = new BureauDAO();
                 burdao.search(sig);
-                JOptionPane.showMessageDialog(this,BureauDAO.list_desc,"Information",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this,BureauDAO.list_desc ,"Information",JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(ReadBureau2.class.getName()).log(Level.SEVERE, null, ex);
             }

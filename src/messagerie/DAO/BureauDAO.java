@@ -12,7 +12,7 @@ public class BureauDAO extends DAO<Bureau>{
     int id, nb_lig;
     Bureau b;
     public static String liste;
-    public static String s, tele, descrip;
+    public static String s, tele, descrip, description;
     public static String new_sig, new_tel;
     public static String list_desc;
     
@@ -26,8 +26,8 @@ public class BureauDAO extends DAO<Bureau>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String query = "INSERT INTO BUREAU(idbur,sigle,tel,description) values(?,?,?,?)";
-        String query2 = "SELECT idbur FROM BUREAU WHERE sigle=? and tel=?";
+        String query = "INSERT INTO BUREAU(idbur,sigle,tel,description) values(?,lower(?),?,lower(?))";
+        String query2 = "SELECT idbur FROM BUREAU WHERE sigle=lower(?) and tel=lower(?)";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)){
             pstm.setInt(1,obj.getIdbur());
             pstm.setString(2,obj.getSigle());
@@ -76,9 +76,8 @@ public class BureauDAO extends DAO<Bureau>{
                 if (rs.next()) {
                     s = rs.getString("SIGLE");
                     tele = rs.getString("TEL");
-                    String description = rs.getString("DESCRIPTION");
+                    description = rs.getString("DESCRIPTION");
                     //System.out.println("Id : " + idb + ", sigle : " + s + " N° de téléphone : " + tele+"\n\n");
-                    System.out.println(description);
                     return new Bureau(idb, s, tele, description);                 
                 }
                 else {
@@ -99,7 +98,7 @@ public class BureauDAO extends DAO<Bureau>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String query = "update bureau set sigle=?,tel=?,description=? where idbur=?";
+        String query = "update bureau set sigle=lower(?),tel=?,description=lower(?) where idbur=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(4, obj.getIdbur());
             pstm.setString(1, MenuBureau.new_sig);

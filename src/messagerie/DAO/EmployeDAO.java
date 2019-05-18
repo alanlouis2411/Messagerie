@@ -165,7 +165,7 @@ public class EmployeDAO extends DAO<Employe>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String query = "INSERT INTO EMPLOYE(idemp,matricule,nom,prenom,idbur) values(?,?,?,?,?)";
+        String query = "INSERT INTO EMPLOYE(idemp,matricule,nom,prenom,idbur) values(?,?,lower(?),lower(?),?)";
         String query2 = "SELECT idemp FROM EMPLOYE WHERE idbur=? AND matricule=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query);PreparedStatement pstm2 = dbConnect.prepareStatement(query2)){
             pstm.setInt(1,obj.getIdemp());
@@ -242,7 +242,7 @@ public class EmployeDAO extends DAO<Employe>{
         if (dbConnect == null) {
             System.exit(1);
         }
-        String query = "update employe set nom=?, prenom=?, idbur=? where idemp=?";
+        String query = "update employe set nom=lower(?), prenom=lower(?), idbur=? where idemp=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, new_nom);
             pstm.setString(2, new_prenom);

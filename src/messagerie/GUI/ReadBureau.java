@@ -138,7 +138,7 @@ public class ReadBureau extends javax.swing.JPanel {
                 }
                 else{
                     bdao.read(id);
-                    str = str + "Sigle : " + BureauDAO.s + "   N° de téléphone : " + BureauDAO.tele + BureauDAO.liste;
+                    str = str + "Sigle : " + BureauDAO.s + "   N° de téléphone : " + BureauDAO.tele + " Description : " + BureauDAO.description + BureauDAO.liste;
                     JOptionPane.showMessageDialog(this,str,"Information",JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (SQLException ex) {
