@@ -22,7 +22,7 @@ public class MenuPr extends javax.swing.JPanel {
     public MenuPr() {
         initComponents();
     }
-    public static final String song = "C:\\Users\\alanl\\Desktop\\closing.mp3";
+    public static final String song = "C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI\\closing.mp3";
     static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.

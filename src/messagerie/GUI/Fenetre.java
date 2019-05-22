@@ -27,7 +27,7 @@ public class Fenetre extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static final String song = "C:\\Users\\alanl\\Desktop\\opening.mp3";
+    public static final String song = "C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI\\opening.mp3";
     static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.

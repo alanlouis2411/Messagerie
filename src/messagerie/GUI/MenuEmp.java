@@ -37,7 +37,7 @@ public class MenuEmp extends javax.swing.JPanel {
         initComponents();
     }
 
-    public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    public static final String song = "C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI\\hanouais.mp3";
     static MP3Player mp3player = new MP3Player(new File(song));
     /**
      * This method is called from within the constructor to initialize the form.

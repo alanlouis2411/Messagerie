@@ -32,7 +32,11 @@ public class DeleteEmploye extends javax.swing.JPanel {
     }
 
     public static final String song = "C:\\Users\\alanl\\Desktop\\error.mp3";
+    public static final String song2 = "C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI\\fired.mp3";
+    public static final String song3 = "C:\\Users\\alanl\\Documents\\NetBeansProjects\\Messagerie\\src\\messagerie\\GUI\\hanouais.mp3";
     static MP3Player mp3player = new MP3Player(new File(song));
+    static MP3Player mp3player2 = new MP3Player(new File(song2));
+    static MP3Player mp3player3 = new MP3Player(new File(song3));
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,6 +174,13 @@ public class DeleteEmploye extends javax.swing.JPanel {
                     Employe emp = new Employe(id_virer, mat, nom, prenom, idbur);
                     EmployeDAO empdao = new EmployeDAO();
                     empdao.delete(emp);
+                    mp3player2.play();
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(DeleteEmploye.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    mp3player3.play();
                     JOptionPane.showMessageDialog(this,"L'employé à bien été viré.","Succès",JOptionPane.INFORMATION_MESSAGE);
                     Fenetre.f.setContentPane(new MenuGestEmp());
                     Fenetre.f.repaint();

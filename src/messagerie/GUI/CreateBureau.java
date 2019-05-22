@@ -179,7 +179,7 @@ public class CreateBureau extends javax.swing.JPanel {
                 while(rs.next()){
                     String sig = rs.getString("SIGLE");
                     String t = rs.getString("TEL");
-                    if((sig.equalsIgnoreCase(sig))||(t.equals(tel))){
+                    if((sigle.equalsIgnoreCase(sig))||(t.equals(tel))){
                         flag = 0;
                         break;
                     }
