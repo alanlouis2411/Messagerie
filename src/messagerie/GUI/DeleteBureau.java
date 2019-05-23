@@ -27,7 +27,6 @@ public class DeleteBureau extends javax.swing.JPanel {
     /**
      * Creates new form DeleteBureau
      */
-    
     String sigle, tel, descrip; 
     
     public DeleteBureau() {

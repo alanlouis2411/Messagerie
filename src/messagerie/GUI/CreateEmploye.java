@@ -27,7 +27,6 @@ public class CreateEmploye extends javax.swing.JPanel {
     /**
      * Creates new form CreateEmploye
      */
-    
     public CreateEmploye() {
         initComponents();
     }
